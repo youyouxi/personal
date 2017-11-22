@@ -1,7 +1,7 @@
 <template lang="">
   <div class="">
     <div class="list-top">
-      <p class="title">订单汇总</p>
+      <p class="title">售后订单</p>
       <div class="demo-input-suffix">
         <el-input
           class="list-search"
@@ -17,9 +17,10 @@
         <el-radio-group class="caozuo" v-model="tableItem"  @change='showalert'>
           <el-radio-button label="全部订单"></el-radio-button>
           <el-radio-button label="待审核"></el-radio-button>
-          <el-radio-button label="待发货"></el-radio-button>
-          <el-radio-button label="已发货"></el-radio-button>
-          <el-radio-button label="交易完成"></el-radio-button>
+          <el-radio-button label="待寄回"></el-radio-button>
+          <el-radio-button label="已收货"></el-radio-button>
+          <el-radio-button label="退款完成"></el-radio-button>
+          <el-radio-button label="退款关闭"></el-radio-button>
         </el-radio-group>
       </div>
       <div class="item-delete" v-if='multipleSelection.length<=0' >

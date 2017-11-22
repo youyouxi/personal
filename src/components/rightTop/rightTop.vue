@@ -69,14 +69,14 @@ export default{
       this.isShow = !this.isShow
     },
     hide () {
-		  if (this.hider == 0) {
-			  $('.cebianlan').css('display', 'none')
-			  this.hider = 1
-		  } else {
-			  $('.cebianlan').css('display', 'block')
-			  this.hider = 0
-		  }
-	  },
+      if (this.hider === 0) {
+        $('.cebianlan').css('display', 'none')
+        this.hider = 1
+      } else {
+        $('.cebianlan').css('display', 'block')
+        this.hider = 0
+      }
+    },
     basic () {
       this.$router.push({
         name: 'Personal'

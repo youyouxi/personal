@@ -12,7 +12,7 @@
 		          <template slot="title"><router-link to='/Order'>订单汇总</router-link></template>
 		        </el-menu-item-group>
 						<el-menu-item-group>
-		          <template slot="title">退款处理</template>
+		          <template slot="title"><router-link to='/Defund'>退款处理</router-link></template>
 		       </el-menu-item-group>
 		      </el-submenu>
 		      <el-submenu index="3">
