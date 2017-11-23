@@ -2,7 +2,7 @@
 <div id='page' class='dingdanxiangqing'>
     <div class='main'>
         <div class='right'>
-            <div class='title'>订单详情</div>
+            <div class='title'>订单详情<span @click='back'>返回供货列表</span></div>
             <div>
                 <div class="state">
                     <p>订单状态：<span style="color: #ff4747;">已完成</span></p>
@@ -156,13 +156,18 @@ export default {
             line-height: 58px;
             border-bottom: 1px solid #d9d9d9;
             text-indent: 20px;
+            span{
+                color: #12A1F3;
+                font-size: 14px;
+                margin-left: 10px;
+            }
         }
         .stitle{
             font:16px/32px '';
             padding: 0 20px;
             color: #2a3542;
             height:34px ;
-            background:#f1fbff;
+            background:#fafbfc;
             line-height: 34px; 
         }
         .bor{
