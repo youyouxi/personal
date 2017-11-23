@@ -24,8 +24,6 @@
   color: #2a3542;
   line-height: 60px;
   left: 20px;
-  
-
   }
   border-bottom: 1px solid #d6e2ed;
   .demo-input-suffix{
@@ -55,14 +53,16 @@
     }
   }
 }
+
 .list-item{
   background: #f4f6f9;
   width: 100%;
-  height: 49px;
+  // height: 49px;高度消失
   display: flex;
+  overflow: hidden;
   .item-group{
     margin: auto;
-      margin-left: 20px;
+    margin-left: 20px;
     .el-radio-button{
       height: 45px;
       line-height: 40px;
@@ -89,7 +89,7 @@
     }
     .is-active{
       .el-radio-button__inner{
-        background: $gray;
+        background: #ff776d;
         box-shadow:0 0 0 0;
         border-radius: 5px;
       }
@@ -124,7 +124,7 @@
     }
     .is-active{
       .el-radio-button__inner{
-        background: $gray;
+        background: #ff776d;
         box-shadow:0 0 0 0;
         border-radius: 5px;
       }
@@ -159,6 +159,8 @@
   }
   .el-table__header-wrapper{
     tr{
+      overflow: hidden;
+      // th{border-left:1px solid $gray;}
       th:nth-last-child(2){
         padding-left: 0 !important;
         text-align: center;
@@ -244,6 +246,7 @@
   }
   .el-table__row{
     height: 116px;
+    
   }
   .el-table__header{
     width: 100% !important;
@@ -1111,8 +1114,9 @@
 .seniorSearch{
   font-size: 14px;
   color: $gray;
-  height: 169px;
+  height: 120px;
   width: 100%;
+  border-bottom:1px solid #d6e2ed;;
   .seniorSearch-ul{
     width: 100%;
     height: 100%;
@@ -1135,12 +1139,13 @@
           }
         }
       }
+      .third{
+        padding-left:50px;
+      }
     }
   }
 }
-.el-table_1_column_8{
-  text-align: center !important;
-}
+
 .el-table_1_column_3{
   text-align: left;
 }

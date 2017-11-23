@@ -9,7 +9,7 @@
           <i slot="suffix" class="el-input__icon el-icon-circle-close"></i>
           <i slot="suffix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <span class="search" @click='showSeach'>高级搜素</span>
+        <span class="search">高级搜素</span>
       </div>
     </div>
     <div class="list-item">
@@ -191,7 +191,11 @@
                 <p>{{tableContent.box2}}</p>
                 <p>{{tableContent.box2}}</p>
                 <router-link to='/Details'><p style='color:#12a1f3'>{{tableContent.box4}}</p></router-link>
-                <p>{{tableContent.box3}}</p>
+                <p class='shouhou'>
+                  <span style='color:#ff776d'>{{tableContent.state1}}</span>
+                  <span>{{tableContent.state2}}</span>
+                  <router-link to='/Aftersale'><span style='color:#12a1f3'>{{tableContent.box5}}</span></router-link>
+                </p>
                 <p><el-button type="primary" size='small'>接单</el-button></p>
               </div>
           </li>
@@ -238,7 +242,7 @@
             //  titleWidth:"80",
           },
           {
-            name: '备注'
+            name: '售后状态'
             //  titleWidth:"80",
           },
           {
@@ -264,7 +268,11 @@
           box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
           box2: '200333',
           box3: '请发顺丰快递',
-          box4: '订单详情'
+          box4: '订单详情',
+          box5: '查看详情',
+          state1: '待审核',
+          state2: '仅退款'
+
         },
         showIt: false,
         checked: false,
@@ -416,3 +424,12 @@
 <style lang="scss">
 @import '../../../static/style/order.scss';
 </style>
+<style lang="scss" scoped>
+.shouhou{
+  span{
+    display: block;
+    cursor:pointer 
+  }
+}
+</style>
+

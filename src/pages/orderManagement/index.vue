@@ -9,7 +9,7 @@
           <i slot="suffix" class="el-input__icon el-icon-circle-close"></i>
           <i slot="suffix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <span class="search" @click='showSeach'>高级搜素</span>
+        <span class="search">高级搜素</span>
       </div>
     </div>
     <div class="list-item">
@@ -189,7 +189,10 @@
                 <p>{{tableContent.box2}}</p>
                 <p>{{tableContent.box2}}</p>
                 <p>{{tableContent.box2}}</p>
-                <router-link to='/Details'><p style='color:#12a1f3'>{{tableContent.box4}}</p></router-link>
+                <p class='sta'>
+                  <router-link to='/Complete'><span style='color:#79cd51'>{{tableContent.state1}}</span></router-link>
+                  <router-link to='/Details'><span style='color:#12a1f3'>{{tableContent.box4}}</span></router-link>
+                </p>
                 <p>{{tableContent.box3}}</p>
                 <p><el-button type="primary" size='small'>接单</el-button></p>
               </div>
@@ -263,7 +266,8 @@
           box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
           box2: '200333',
           box3: '请发顺丰快递',
-          box4: '订单详情'
+          box4: '订单详情',
+          state1: '交易完成'
         },
         showIt: false,
         checked: false,
@@ -414,4 +418,12 @@
 </script>
 <style lang="scss">
 @import '../../../static/style/order.scss';
+</style>
+<style lang="scss" scoped>
+.sta{
+  span{
+    display: block;
+    cursor:pointer 
+  }
+}
 </style>

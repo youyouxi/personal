@@ -12,19 +12,19 @@
 		          <template slot="title"><router-link to='/Order'>订单汇总</router-link></template>
 		        </el-menu-item-group>
 						<el-menu-item-group>
-		          <template slot="title"><router-link to='/Defund'>退款处理</router-link></template>
+		          <template slot="title"><router-link to='/Refund'>退款处理</router-link></template>
 		       </el-menu-item-group>
 		      </el-submenu>
 		      <el-submenu index="3">
 		        <template slot="title"><i><img src="../../../static/images/product.png"></i>商品管理</template>
 		        <el-menu-item-group>
-		          <template slot="title">供货清单</template>
+		          <template slot="title"><router-link to='/Shop'>供货清单</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title">运费模板</template>
+		          <template slot="title"><router-link to='/Freight'>运费模板</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title">库存预警</template>
+		          <template slot="title"><router-link to='/Warning'>库存预警</router-link></template>
 		        </el-menu-item-group>
 		      </el-submenu>
 		      <el-submenu index="4">

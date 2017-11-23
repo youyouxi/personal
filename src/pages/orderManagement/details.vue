@@ -113,7 +113,7 @@ export default{
 <style lang="scss" scoped>
 .bor{
 	border-bottom: 1px solid #d6e2ed;
-    background:#F4F6F9;
+  background:#F4F6F9;
 }
 .page-tit{
 	width: 100%;
