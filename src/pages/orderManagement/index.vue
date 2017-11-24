@@ -201,17 +201,10 @@
     </div>
 
     </div>
-    <div class="pageNum">
-      <pagenation></pagenation>
-    </div>
   </div>
 </template>
 <script lang="">
-  import Pagenation from '../../components/pagenations/pagenations.vue'
   export default {
-    components: {
-      'pagenation': Pagenation
-    },
     data () {
       return {
         tabletitle: [

@@ -89,7 +89,7 @@
     }
     .is-active{
       .el-radio-button__inner{
-        background: #ff776d;
+        background: #6e7381;
         box-shadow:0 0 0 0;
         border-radius: 5px;
       }
@@ -124,7 +124,7 @@
     }
     .is-active{
       .el-radio-button__inner{
-        background: #ff776d;
+        background: #6e7381;
         box-shadow:0 0 0 0;
         border-radius: 5px;
       }
@@ -1137,10 +1137,16 @@
           .el-select{
             width: calc(100% - 100px)
           }
+          .el-input{
+            width: 320px;
+          }
+          .el-date-editor--daterange{
+            width: 320px;
+          }
         }
       }
       .third{
-        padding-left:50px;
+        padding-left:70px;
       }
     }
   }

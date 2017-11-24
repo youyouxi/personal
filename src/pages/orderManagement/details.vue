@@ -135,6 +135,7 @@ export default{
 	color: #12A1F3;
 	font-size: 14px;
 	margin-left: 10px;
+	cursor:pointer;
 }
 .state{
 	height: 48px;

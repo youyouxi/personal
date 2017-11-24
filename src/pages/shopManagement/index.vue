@@ -357,6 +357,7 @@
       },
       close () {
         this.showIt = !this.showIt
+        $('#show').html('高级搜索')
       },
       showalert (val) {
         if (this.tableItem === '删除') {

@@ -2,7 +2,7 @@
 <div class='cebianlan'>
 	<el-aside width="220px" class="left">
 	    <el-menu>
-					<img src="../../../static/images/logo.png" style="width:220px;">
+					<img src="../../../static/images/logo.png" style="width:220px;margin-bottom:20px;">
 		      <el-submenu index="1">
 		        <template slot="title"><router-link to='/Home'><i><img src="../../../static/images/home.png"></i>首页</router-link></template>
 		      </el-submenu>
@@ -30,13 +30,13 @@
 		      <el-submenu index="4">
 		        <template slot="title"><i><img src="../../../static/images/money.png"></i>财务管理</template>
 		        <el-menu-item-group>
-		          <template slot="title">订单明细</template>
+		          <template slot="title"><router-link to='/Financial'>订单明细</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title">账单管理</template>
+		          <template slot="title"><router-link to='/Management'>账单管理</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title">资金收入</template>
+		          <template slot="title"><router-link to='/Fund'>资金收入</router-link></template>
 		        </el-menu-item-group>
 		      </el-submenu>
 					<p class='logo-size'>POWERED BY 妈妈去哪儿</p>
@@ -89,9 +89,13 @@
 				&:hover{
 					color: #fff;
 				}
+				a{
+					color: #a3adc8;
+				}
+				.router-link-exact-active.router-link-active{color:#fff}
 		}
 	}
-	.router-link-exact-active.router-link-active{color:#fff}
+	
 	
 }
 </style>

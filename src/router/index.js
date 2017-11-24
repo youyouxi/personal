@@ -14,6 +14,12 @@ import Supply from '../pages/shopManagement/supply.vue'
 import Recycle from '../pages/shopManagement/recycle.vue'
 import Warning from '../pages/shopManagement/warning.vue'
 import Freight from '../pages/shopManagement/freight.vue'
+import Financial from '../pages/financialManagement/index.vue'
+import Management from '../pages/financialManagement/management.vue'
+import FinancialDetails from '../pages/financialManagement/details.vue'
+import Detailedlist from '../pages/financialManagement/detailedlist.vue'
+import Fund from '../pages/financialManagement/fund.vue'
+import FundDetail from '../pages/financialManagement/funddetail.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -86,6 +92,37 @@ export default new Router({
       path: '/Freight',
       name: 'Freight',
       component: Freight
+    },
+    {
+      path: '/Financial',
+      name: 'Financial',
+      component: Financial
+    },
+    {
+      path: '/Management',
+      name: 'Management',
+      component: Management
+    },
+    {
+      path: '/FinancialDetails',
+      name: 'FinancialDetails',
+      component: FinancialDetails
+    },
+    {
+      path: '/Detailedlist',
+      name: 'Detailedlist',
+      component: Detailedlist
+    },
+    {
+      path: '/Fund',
+      name: 'Fund',
+      component: Fund
+    },
+    {
+      path: '/FundDetail',
+      name: 'FundDetail',
+      component: FundDetail
     }
+
   ]
 })
