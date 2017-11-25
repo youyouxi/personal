@@ -1106,6 +1106,7 @@
   width: 88.5%;
   height: 60px;
   background: #f4f6f9;
+  display: flex;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -1162,7 +1163,7 @@
     width: 170px;
   }
   .demo-input-suffix{
-    margin-left: 10px;
+  
     float: left;
   }
 }

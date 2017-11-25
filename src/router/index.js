@@ -14,6 +14,7 @@ import Supply from '../pages/shopManagement/supply.vue'
 import Recycle from '../pages/shopManagement/recycle.vue'
 import Warning from '../pages/shopManagement/warning.vue'
 import Freight from '../pages/shopManagement/freight.vue'
+import AddFreight from '../pages/shopManagement/addfreight.vue'
 import Financial from '../pages/financialManagement/index.vue'
 import Management from '../pages/financialManagement/management.vue'
 import FinancialDetails from '../pages/financialManagement/details.vue'
@@ -92,6 +93,11 @@ export default new Router({
       path: '/Freight',
       name: 'Freight',
       component: Freight
+    },
+    {
+      path: '/AddFreight',
+      name: 'AddFreight',
+      component: AddFreight
     },
     {
       path: '/Financial',

@@ -54,9 +54,7 @@
 </script>
 <style lang="scss" scoped>
 .pageNum{
-  position: fixed;
-  left: 200px;
-  .block{
+    .block{
     height: 60px;
     .el-pagination{
       position: absolute;

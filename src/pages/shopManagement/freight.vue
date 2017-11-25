@@ -10,7 +10,7 @@
           <i slot="suffix" class="el-input__icon el-icon-search"></i>
         </el-input>
       </div>
-       <el-button class="top-button" type="primary" size="small">新增商品</el-button> 
+       <router-link to='/AddFreight'><el-button class="top-button" type="primary" size="small">新增商品</el-button></router-link>
     </div>
     <div class="list-item">
       <div class="item-group">
@@ -60,7 +60,7 @@
                 >
                 <template slot-scope="scope">
                 <div class="operation-box">
-                  <p class='operation'>编辑</p>
+                  <router-link to='/AddFreight'><p class='operation'>编辑</p></router-link>
                   <p class='operation'>删除</p>
                   <!-- <p class='operation'  @click='jiedong'>编辑</p> -->
                 </div>
