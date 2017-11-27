@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="">
+  <div class="shopmanage">
     <div class="list-top">
       <p class="title">供货列表</p>
       <div class="demo-input-suffix">
@@ -403,6 +403,10 @@
 </style>
 
 <style lang="scss" scoped>
+.shopmanage{
+  position: relative;
+  height:93.5%;
+}
 .commodity{
     img{
         width: 62px;

@@ -166,6 +166,8 @@
 <style lang="scss">
 @import '../../../static/style/order.scss';
 .dingdanjiesuan{
+  position: relative;
+  height:93.5%;
     .el-table__row{
         .el-table_1_column_1{
             color:#12a1f3;

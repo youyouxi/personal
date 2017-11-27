@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='kucunyujing'>
       <div class='title'>
         <span>库存预警</span>
         <div class='search'>
@@ -116,12 +116,16 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.kucunyujing{
+    position: relative;
+    height:93.5%;
+}
 .title{
     height:60px;
     background: #F4F6F9;
     border:1px solid #dfe2e9;
     text-indent: 20px;
-    span{
+    span{ 
         font:18px/60px '';
     }
     .search{
@@ -146,7 +150,7 @@ export default {
     }
 }
 .pageNum{
-  width: 88.5%;
+  width: 100%;
   height: 60px;
   background: #f4f6f9;
   position: absolute;

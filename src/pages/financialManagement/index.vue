@@ -1,7 +1,7 @@
 <template lang="">
   <div class="dingdanjiesuan">
     <div class="list-top">
-      <p class="title">订单明细</p>
+      <p class="title">订单结算</p>
       <div class="demo-input-suffix">
         <el-input
           class="list-search"
@@ -168,7 +168,7 @@
     data () {
       return {
         showIt: false,
-        tableHeight: 745,
+        tableHeight: 500,
         input: '',
         value9: '',
         tableData3: [{
@@ -337,6 +337,11 @@
 <style lang="scss">
 @import '../../../static/style/order.scss';
 .dingdanjiesuan{
+  position: relative;
+  height:93.5%;
+  .el-table{
+    border-bottom:none;
+  }
     .el-table__row{
         .el-table_1_column_1{
             color:#12a1f3;

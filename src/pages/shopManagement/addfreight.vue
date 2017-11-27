@@ -58,9 +58,9 @@
 						<span class='midd'><input type="number" /></span>
 						<span class='midd'><input type="number" /></span>
 						<span class='midd'><input type="number" /></span>
-                        <span><i @click="addBorder">编辑</i><i>删除</i></span>
+                        <span><i @click="addBorder(index)">编辑</i><i>删除</i></span>
 					</div>
-					<div class="addlocal" @click="addBorder">
+					<div class="addlocal" @click="addBorder1">
 						+添加地区
 					</div>
 				</div>
@@ -70,21 +70,22 @@
 </template>
 
 <script>
-	export default {
-	  data () {
-	    const generateData2 = _ => {
-	      const data = []
+    import $ from 'jquery'
+export default {
+  data () {
+    const generateData2 = _ => {
+      const data = []
       const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都']
       const pinyin = ['shanghai', 'beijing', 'guangzhou', 'shenzhen', 'nanjing', 'xian', 'chengdu']
       cities.forEach((city, index) => {
-	        data.push({
-	          label: city,
-	          key: index,
-	          pinyin: pinyin[index]
-	        })
-      })
+        data.push({
+          label: city,
+          key: index,
+          pinyin: pinyin[index]
+        })
+  })
       return data
-    }
+}
     return {
       list: [
         {
@@ -94,36 +95,67 @@
       radio: '1',
       type: 1,
       border: 0,
-	      data2: generateData2(),
-	      value2: [],
-	      filterMethod (query, item) {
-	        return item.pinyin.indexOf(query) > -1
+      data2: generateData2(),
+      value2: [],
+      filterMethod (query, item) {
+        return item.pinyin.indexOf(query) > -1
       }
-	    }
+    }
   },
-	  methods: {
-	    saveBorder () {
-	      this.border = 0
-	      console.log(this.data2.cities)
+  methods: {
+    saveBorder () {
+      var dex = localStorage.getItem('dex')
+      if (!dex) {
+        this.border = 0
+        var arr = []
+        var n = $('.el-transfer-panel').eq(1).find('.el-checkbox__label').find('span').length
+        for (let i = 0; i < n; i++) {
+          arr.push($('.el-transfer-panel').eq(1).find('.el-checkbox__label').find('span').eq(i).html())
+        }
+        arr.shift()
+        if (arr.length > 0) {
+          var arrtr = arr.join(',')
+          this.list.push({name: arrtr})
+        }
+      } else {
+        this.border = 0
+        var arr = []
+        var n = $('.el-transfer-panel').eq(1).find('.el-checkbox__label').find('span').length
+        for (let i = 0; i < n; i++) {
+          arr.push($('.el-transfer-panel').eq(1).find('.el-checkbox__label').find('span').eq(i).html())
+        }
+        arr.shift()
+        if (arr.length > 0) {
+          var arrtr = arr.join(',')
+          this.list[dex] = {name: arrtr}
+        }
+        localStorage.removeItem('dex')
+      }
     },
-	    back () {
+    back () {
       window.history.back()
     },
-	    jian () {
-	      this.type = 1
+    jian () {
+      this.type = 1
     },
-	    liang () {
-	      this.type = 0
+    liang () {
+      this.type = 0
     },
-	    addBorder () {
-	      this.border = 1
-	      this.$emit('addBorder')
+    addBorder (index) {
+      console.log(index)
+      this.border = 1
+      localStorage.setItem('dex', index)
+      this.$emit('addBorder')
     },
-	    handleChange (value, direction, movedKeys) {
-	      console.log(value, direction, movedKeys)
-	    }
+    addBorder1 () {
+      this.border = 1
+      this.$emit('addBorder')
+    },
+    handleChange (value, direction, movedKeys) {
+      console.log(value, direction, movedKeys)
+    }
   }
-	}
+}
 </script>
 
 <style lang='scss' scoped>

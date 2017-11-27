@@ -1103,13 +1103,17 @@
   }
 }
 .pageNum{
-  width: 88.5%;
+  width: 100%;
+  position: absolute;
+  bottom:0;
+  left:0;
+  // width: 85.5%;
   height: 60px;
   background: #f4f6f9;
   display: flex;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  // position: absolute;
+  // bottom: 0;
+  // right: 0;
   z-index: 4;
 }
 .seniorSearch{

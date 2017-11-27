@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="">
+  <div class="freights">
     <div class="list-top">
       <p class="title">运费模板</p>
       <div class="demo-input-suffix">
@@ -179,4 +179,9 @@
 </script>
 <style lang="scss">
 @import '../../../static/style/order.scss';
+.freights{
+  position: relative;
+  height:93.5%;
+}
+
 </style>
