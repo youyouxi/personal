@@ -7,12 +7,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import axios from 'axios'
 import '../static/style/public.css'
-// import $ from 'jquery'
 
+Vue.prototype.$http=axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(axios)
-// Vue.prototype.$http=axios
+
+
 
 /* eslint-disable no-new */
 new Vue({

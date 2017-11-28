@@ -1,7 +1,7 @@
 <template>
   <div class='kucunyujing'>
       <div class='title'>
-        <span>库存预警</span>
+        <span @click='begin'>库存预警</span>
         <div class='search'>
             <el-input
             class='nnm'
@@ -18,15 +18,17 @@
                 border
                 style="width: 100%">
                 <el-table-column
+                prop='img'
+                label="tupian"
+                width="260">
+                <template>
+                  <img :src='img'/>
+                </template>
+                </el-table-column>
+                <el-table-column
                 prop='name'
                 label="商品"
                 width="460">
-                <template slot-scope="scope">
-                    <div class='shop-inf'>
-                        <img src="../../../static/images/shop.png">
-                        <p>海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货</p>
-                    </div>
-                </template>
                 </el-table-column>
                 <el-table-column
                 prop="num"
@@ -60,51 +62,72 @@
   </div>
 </template>
 <script>
+import $ from 'jquery'
+import axios from 'axios'
+import qs from 'qs'
 import Page from '../../components/pagenations/pagenations'
 export default {
   data () {
     return {
-      tableData: [{
-        num: '125',
-        sales: '572',
-        days: '5',
-        totle: '360',
-        fate: '3'
-      }, {
-        num: '125',
-        sales: '524',
-        days: '5',
-        totle: '360',
-        fate: '5'
-      }, {
-        num: '125',
-        sales: '785',
-        days: '5',
-        totle: '360',
-        fate: '4'
-      }, {
-        num: '125',
-        sales: '75',
-        days: '5',
-        totle: '360',
-        fate: '7'
-      }, {
-        num: '125',
-        sales: '757',
-        days: '5',
-        totle: '360',
-        fate: '9'
-      }, {
-        num: '125',
-        sales: '75',
-        days: '5',
-        totle: '360',
-        fate: '3'
-      }]
+      tableData: []
     }
   },
+  mounted () {
+    this.$http.get('api/inventory', {params: {
+      id: 1,
+      usableDay: 20,
+      salesDay: 4,
+      salesVolume: 13,
+      itemCode: 21015515151,
+      inventory: 222,
+      title: '大手大脚卡萨丁看手机',
+      imgMain: ''
+    }}).then(res => {
+      console.log(res.data.data.list)
+      var arr = res.data.data.list
+      for (let i in arr) {
+        this.tableData.push({
+          img: arr[i].imgMain,
+          name: arr[i].title,
+          num: arr[i].itemCode,
+          sales: arr[i].salesDay,
+          days: arr[i].salesVolume,
+          totle: arr[i].inventory,
+          fate: arr[i].usableDay
+        })
+      }
+      console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
   methods: {
+    begin () {
+      this.$http.get('api/inventory', {params: {
 
+      }}).then(res => {
+        console.log(1)
+        // this.tableData.num=res.itemCode,
+        // this.tableData.sales=res.salesDay,
+        // this.tableData.day=res.salesVolume,
+        // this.tableData.totle=res.inventory,
+        // this.tableData.fate=res.usableDay
+      }, error => {
+        console.log(2)
+      })
+        // $.ajax({
+        //   type: 'GET',
+        //   url: '/api/inventory',
+        //   data: {},
+        //   dataType: 'JSON',
+        //   success: function (res) {
+        //     alert(1)
+        //   },
+        //   error: function () {
+        //     console.log(2)
+        //   }
+        // })
+    }
   },
   components: {
     Page
@@ -113,6 +136,9 @@ export default {
 </script>
 <style>
 /*.el-table--border td, .el-table--border th{border:none;}*/
+.el-table_1_column_25 .cell{
+  color: blue;
+}
 </style>
 
 <style lang="scss" scoped>
