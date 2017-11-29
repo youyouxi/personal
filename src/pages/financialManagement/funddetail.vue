@@ -26,7 +26,21 @@ export default{
     back () {
       window.history.back()
     }
-  }
+  },
+  mounted () {
+    this.$http.get('api/sup/transferMsg/asd1231a3s2', {params: {}}).then(res => {
+      console.log(res.data.data.list)
+      var arr = res.data.data.list
+      for (let i in arr) {
+        this.tableData.push({
+          
+        })
+      }
+      console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
 
 }
 </script>

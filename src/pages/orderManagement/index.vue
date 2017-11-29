@@ -204,6 +204,9 @@
   </div>
 </template>
 <script lang="">
+  import $ from 'jquery'
+  import axios from 'axios'
+  import qs from 'qs'
   export default {
     data () {
       return {
@@ -266,38 +269,6 @@
         checked: false,
         tableHeight: 748,
         multipleSelection: [],
-        tableData3: [{
-          date: '2016-05-03',
-          img: '../../../static/image/commodity.jpg',
-          Commodity: '200333',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        } ],
         tableItem: '全部订单',
         list: [
           {
@@ -352,7 +323,25 @@
 
     ],
     mounted () {
-
+      this.$http.get('api/item/applylist', {params: {
+  
+      }}).then(res => {
+        console.log(res.data.data.list)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          this.tableData.push({
+            Commodity: arr[i].itemCode,
+            num: arr[i].specsStr,
+            price: arr[i].totalPrice,
+            totle: arr[i].unitPrice,
+            state: arr[i].state,
+            time: arr[i].created
+          })
+        }
+        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
     },
     computed: {
 

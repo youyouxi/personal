@@ -18,17 +18,16 @@
                 border
                 style="width: 100%">
                 <el-table-column
-                prop='img'
-                label="tupian"
-                width="260">
-                <template>
-                  <img :src='img'/>
+                label="商品"
+                width="60">
+                <template scope="scope">
+                  <img :src="scope.row.pic"/>
                 </template>
                 </el-table-column>
                 <el-table-column
                 prop='name'
-                label="商品"
-                width="460">
+                label=""
+                width="400">
                 </el-table-column>
                 <el-table-column
                 prop="num"
@@ -87,7 +86,7 @@ export default {
       var arr = res.data.data.list
       for (let i in arr) {
         this.tableData.push({
-          img: arr[i].imgMain,
+          pic: arr[i].imgMain,
           name: arr[i].title,
           num: arr[i].itemCode,
           sales: arr[i].salesDay,
@@ -134,10 +133,21 @@ export default {
   }
 }
 </script>
-<style>
+<style lang='scss'>
 /*.el-table--border td, .el-table--border th{border:none;}*/
-.el-table_1_column_25 .cell{
-  color: blue;
+.el-table__header{
+  .el-table_1_column_1{
+    border-right:none;
+  }
+}
+.el-table__row{
+  .el-table_1_column_1{
+    border-right:none;
+  } 
+  .el-table_1_column_2{
+    color:#12a1f3;
+    padding-right:20px; 
+  }
 }
 </style>
 
@@ -151,7 +161,7 @@ export default {
     background: #F4F6F9;
     border:1px solid #dfe2e9;
     text-indent: 20px;
-    span{ 
+    span{
         font:18px/60px '';
     }
     .search{
@@ -172,7 +182,7 @@ export default {
         width: 310px;
         font:14px/20px '';
         color:#12a1f3;
-        
+
     }
 }
 .pageNum{
@@ -185,4 +195,3 @@ export default {
   z-index: 4;
 }
 </style>
-

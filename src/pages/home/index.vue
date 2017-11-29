@@ -118,17 +118,16 @@ export default {
         }
         .main-top{
             width: 100%;
-            height: 170px;
             background: #fff;
             margin-bottom:30px;
             ul{
-                padding:30px 20px;
+                padding:30px 0;
                 display: flex;
                 li{
                     float:left;
                     width: 20%;
                     border-right:1px solid #dbdde1;
-                    padding: 0 20px;
+                    padding-left:20px;
                     &:last-child{border: none}
                     p{
                         font-size:14px;

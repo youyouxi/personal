@@ -121,7 +121,7 @@
     <div class="item-content" >
       <el-table
               ref="multipleTable"
-              :data="tableData3"
+              :data="tableData"
               style="width: 100%;"
                @selection-change="handleSelectionChange"
               :height='tableHeight'
@@ -151,7 +151,6 @@
                 prop="num"
                 label="规格"
                 >
-                123
               </el-table-column>
               <el-table-column
                 prop="price"
@@ -192,6 +191,8 @@
 </template>
 <script lang="">
   import $ from 'jquery'
+  import axios from 'axios'
+  import qs from 'qs'
   import Pagenation from '../../components/pagenations/pagenations.vue'
   export default {
     components: {
@@ -203,103 +204,74 @@
         //  tableHeight:745,
         multipleSelection: [],
         outerHeight: 240,
-        tableData3: [{
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        },
-        {
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        },
-        {
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        },
-        {
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        },
-        {
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        },
-        {
-          date: '2016-05-03',
-          img: '',
-          Commodity: '200333',
-          num: '4包装',
-          price: '320/10',
-          address: '上海市普陀区金沙江路 1518 弄',
-          state: '待上架',
-          totle: '52874',
-          time: '2017-08-08 08:08:08'
-        }],
+        tableData:[],
+        // tableData3: [{
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // },
+        // {
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // },
+        // {
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // },
+        // {
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // },
+        // {
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // },
+        // {
+        //   date: '2016-05-03',
+        //   img: '',
+        //   Commodity: '200333',
+        //   num: '4包装',
+        //   price: '320/10',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   state: '待上架',
+        //   totle: '52874',
+        //   time: '2017-08-08 08:08:08'
+        // }],
         tableItem: '全部商品',
-        list: [
-          {
-            name: '首页1',
-            icon: '',
-            index: '1',
-            path: 'main1',
-            children: []
-          },
-          {
-            name: '首页2',
-            icon: '',
-            index: '2',
-            path: 'main2',
-            children: []
-          },
-          {
-            name: '首页3',
-            icon: '',
-            index: '3',
-            path: 'main3',
-            children: []
-          },
-          {
-            name: '首页4',
-            icon: '',
-            index: '4',
-            path: 'main4',
-            children: []
-          }
-        ],
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -319,11 +291,27 @@
         value8: ''
       }
     },
-    props: [
-
-    ],
     mounted () {
-    },
+    this.$http.get('api/item/applylist', {params: {
+      
+    }}).then(res => {
+      console.log(res.data.data.list)
+      var arr = res.data.data.list
+      for (let i in arr) {
+        this.tableData.push({
+          Commodity: arr[i].itemCode,
+          num: arr[i].specsStr,
+          price: arr[i].totalPrice,
+          totle: arr[i].unitPrice,
+          state: arr[i].state,
+          time: arr[i].created
+        })
+      }
+      console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
     computed: {
 
       tableHeight: function () {

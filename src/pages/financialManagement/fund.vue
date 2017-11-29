@@ -22,7 +22,7 @@
     </div>
     <div class="s-top">
         <p>累计收入</p>
-        <p><img src='../../../static/images/dollar.png'>632592.20</p>
+        <p><img src='../../../static/images/dollar.png' :data='list'>{{list.index}}</p>
     </div>
     <div class="supplier-item-content" >
       <el-table
@@ -71,6 +71,9 @@
   </div>
 </template>
 <script lang="">
+  import $ from 'jquery'
+  import axios from 'axios'
+  import qs from 'qs'
   import Pagenation from '../../components/pagenations/pagenations.vue'
   export default {
     components: {
@@ -81,41 +84,43 @@
         showIt: false,
         tableHeight: 600,
         value6:'',
-        tableData: [{
-          shopnum: '2017021424058141',
-          time: '2017-02-15 00:50:00',
-          num: '564646498461687994912',
-          money: '25498.00',
-          person: '李丽春'
-        },
-        {
-          shopnum: '2017021424058141',
-          time: '2017-02-15 00:50:00',
-          num: '564646498461687994912',
-          money: '25498.00',
-          person: '李丽春'
-        },
-        {
-          shopnum: '2017021424058141',
-          time: '2017-02-15 00:50:00',
-          num: '564646498461687994912',
-          money: '25498.00',
-          person: '李丽春'
-        },
-        {
-          shopnum: '2017021424058141',
-          time: '2017-02-15 00:50:00',
-          num: '564646498461687994912',
-          money: '25498.00',
-          person: '李丽春'
-        },
-        {
-          shopnum: '2017021424058141',
-          time: '2017-02-15 00:50:00',
-          num: '564646498461687994912',
-          money: '25498.00',
-          person: '李丽春'
-        }],
+        tableData:[],
+        list:'',
+        // tableData: [{
+        //   shopnum: '2017021424058141',
+        //   time: '2017-02-15 00:50:00',
+        //   num: '564646498461687994912',
+        //   money: '25498.00',
+        //   person: '李丽春'
+        // },
+        // {
+        //   shopnum: '2017021424058141',
+        //   time: '2017-02-15 00:50:00',
+        //   num: '564646498461687994912',
+        //   money: '25498.00',
+        //   person: '李丽春'
+        // },
+        // {
+        //   shopnum: '2017021424058141',
+        //   time: '2017-02-15 00:50:00',
+        //   num: '564646498461687994912',
+        //   money: '25498.00',
+        //   person: '李丽春'
+        // },
+        // {
+        //   shopnum: '2017021424058141',
+        //   time: '2017-02-15 00:50:00',
+        //   num: '564646498461687994912',
+        //   money: '25498.00',
+        //   person: '李丽春'
+        // },
+        // {
+        //   shopnum: '2017021424058141',
+        //   time: '2017-02-15 00:50:00',
+        //   num: '564646498461687994912',
+        //   money: '25498.00',
+        //   person: '李丽春'
+        // }],
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -139,8 +144,26 @@
 
     ],
     mounted () {
-
-    },
+    this.$http.get('api/sup/revenue/1', {params: {}}).then(res => {
+      console.log(res.data.data.list)
+      var list = this.list.index
+      console.log(list)
+      var arr = res.data.data.list
+      for (let i in arr) {
+        this.tableData.push({
+          money: arr[i].bankFlowNo,
+          shopnum: arr[i].billNo,
+          time: arr[i].collectionTime,
+          num: arr[i].bankFlowNo,
+          money: arr[i].transferMoney,
+          person: arr[i].transferUserName
+        })
+      }
+      console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
     computed: {
 
     },
