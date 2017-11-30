@@ -103,7 +103,7 @@
       <el-table
               ref="multipleTable"
                 v-if='tableItem == "全部账单"'
-              :data="tableData3"
+              :data="tableData"
               style="width: 100%;"
                @selection-change="handleSelectionChange"
               :height='tableHeight'
@@ -115,7 +115,7 @@
                 label="账单编号"
                 width='200px'
                 >
-                <template slot-scope="scope"><router-link to='/FinancialDetails'><span style='color:#12a1f3;;'>2017021424058141</span></router-link></template>
+                <template slot-scope="scope"><router-link to='/FinancialDetails'><span style='color:#12a1f3;;'>{{shopnum}}</span></router-link></template>
               </el-table-column>
               <el-table-column
                 prop="btime"
@@ -175,6 +175,8 @@
 </template>
 <script lang="">
   import $ from 'jquery'
+  import axios from 'axios'
+  import qs from 'qs'
   import Pagenation from '../../components/pagenations/pagenations.vue'
   export default {
     components: {
@@ -186,101 +188,9 @@
         tableHeight: 745,
         value9: '',
         input: '',
-        tableData3: [{
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }, {
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          btime: '2017-02-15 00:50:00',
-          time: '2017-08-011 00：05至2017-08-04 00：05',
-          money: '￥9654.00',
-          bmoney: '￥5624.00',
-          tmoney: '￥254.00',
-          state1: '待确认',
-          state2: '未付款'
-        }],
+        tableData: [],
         tableItem: '全部账单',
-        list: [
-          {
-            name: '首页1',
-            icon: '',
-            index: '1',
-            path: 'main1',
-            children: []
-          },
-          {
-            name: '首页2',
-            icon: '',
-            index: '2',
-            path: 'main2',
-            children: []
-          },
-          {
-            name: '首页3',
-            icon: '',
-            index: '3',
-            path: 'main3',
-            children: []
-          },
-          {
-            name: '首页4',
-            icon: '',
-            index: '4',
-            path: 'main4',
-            children: []
-          }
-        ],
+        shopnum: '00000000',
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -304,8 +214,25 @@
 
     ],
     mounted () {
-
-    },
+    this.$http.get('api/sup/bill/1', {params: {}}).then(res => {
+      console.log(res.data.data.list)
+      var arr = res.data.data.list
+      for (let i in arr) {
+        this.tableData.push({
+          btime: arr[i].startTime,
+          time: arr[i].created,
+          money: arr[i].orderMoney,
+          bmoney: arr[i].refundMoney,
+          tmoney: arr[i].clearingMoney,
+          state1: arr[i].contrastBillStatus,
+          state2: arr[i].transferStatus
+        })
+      }
+      console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
     computed: {
 
     },

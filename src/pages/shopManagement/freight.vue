@@ -29,8 +29,8 @@
     <div class="supplier-item-content" >
       <el-table
               ref="multipleTable"
-                v-if='tableItem == "全部"'
-              :data="tableData3"
+              v-if='tableItem == "全部"'
+              :data="tableData"
               style="width: 100%;"
                @selection-change="handleSelectionChange"
               :height='tableHeight'
@@ -84,15 +84,7 @@
         showIt: false,
         tableHeight: 745,
         multipleSelection: [],
-        tableData3: [{
-          name: '10元运费',
-          address: '浙江省（杭州市[滨江区、西湖区、余杭区]）；浙江省（宁波市、舟山市）；安徽省；',
-          Commodity: '按重量'
-        }, {
-          name: '10元运费',
-          address: '浙江省（杭州市[滨江区、西湖区、余杭区]）；浙江省（宁波市、舟山市）；安徽省；',
-          Commodity: '按件数'
-        }],
+        tableData: [],
         tableItem: '全部',
         list: [
           {
@@ -147,7 +139,20 @@
 
     ],
     mounted () {
-
+      this.$http.get('api/list/0', {params: {}}).then(res => {
+        console.log(res.data.data.list)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          this.tableData.push({
+            name: arr[i].templateName,
+            address: arr[i].countWay,
+            Commodity: arr[i].templateArea
+          })
+        }
+        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
     },
     computed: {
 

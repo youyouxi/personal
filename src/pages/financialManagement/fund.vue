@@ -22,7 +22,7 @@
     </div>
     <div class="s-top">
         <p>累计收入</p>
-        <p><img src='../../../static/images/dollar.png' :data='list'>{{list.index}}</p>
+        <p><img src='../../../static/images/dollar.png'>{{totles}}</p>
     </div>
     <div class="supplier-item-content" >
       <el-table
@@ -85,42 +85,7 @@
         tableHeight: 600,
         value6:'',
         tableData:[],
-        list:'',
-        // tableData: [{
-        //   shopnum: '2017021424058141',
-        //   time: '2017-02-15 00:50:00',
-        //   num: '564646498461687994912',
-        //   money: '25498.00',
-        //   person: '李丽春'
-        // },
-        // {
-        //   shopnum: '2017021424058141',
-        //   time: '2017-02-15 00:50:00',
-        //   num: '564646498461687994912',
-        //   money: '25498.00',
-        //   person: '李丽春'
-        // },
-        // {
-        //   shopnum: '2017021424058141',
-        //   time: '2017-02-15 00:50:00',
-        //   num: '564646498461687994912',
-        //   money: '25498.00',
-        //   person: '李丽春'
-        // },
-        // {
-        //   shopnum: '2017021424058141',
-        //   time: '2017-02-15 00:50:00',
-        //   num: '564646498461687994912',
-        //   money: '25498.00',
-        //   person: '李丽春'
-        // },
-        // {
-        //   shopnum: '2017021424058141',
-        //   time: '2017-02-15 00:50:00',
-        //   num: '564646498461687994912',
-        //   money: '25498.00',
-        //   person: '李丽春'
-        // }],
+        totles:'',
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -145,10 +110,9 @@
     ],
     mounted () {
     this.$http.get('api/sup/revenue/1', {params: {}}).then(res => {
-      console.log(res.data.data.list)
-      var list = this.list.index
-      console.log(list)
+      console.log(res.data)
       var arr = res.data.data.list
+      this.totles=res.data.data.allRevenue
       for (let i in arr) {
         this.tableData.push({
           money: arr[i].bankFlowNo,

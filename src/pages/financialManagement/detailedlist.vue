@@ -148,6 +148,14 @@
     },
     data () {
       return {
+        shopnum: '',
+        name: '',
+        num: '',
+        num2: '',
+        money: '',
+        time: '',
+        price: '',
+        state2: '',
         showIt: false,
         tableHeight: 745,
         tableData: [{
@@ -159,97 +167,8 @@
           time: '2017-02-15 00:50:00',
           price: '￥657',
           state2: '已完成'
-        }, {
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
-        }, {
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
-        }, {
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
-        }, {
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
-        }, {
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
         }],
         tableData2: [{
-          name: '201725698845',
-          snum: '201725698845',
-          time: '2017-08-011 00：05',
-          back: '仅退款',
-          smoney: '306.00(含运费：6.00)',
-          bmoney: '6.00',
-          tmoney: '254.00',
-          state1: '待发货',
-          state2: '已完成'
-        },
-        {
-          name: '201725698845',
-          snum: '201725698845',
-          time: '2017-08-011 00：05',
-          back: '仅退款',
-          smoney: '306.00(含运费：6.00)',
-          bmoney: '6.00',
-          tmoney: '254.00',
-          state1: '待发货',
-          state2: '已完成'
-        },
-        {
-          name: '201725698845',
-          snum: '201725698845',
-          time: '2017-08-011 00：05',
-          back: '仅退款',
-          smoney: '306.00(含运费：6.00)',
-          bmoney: '6.00',
-          tmoney: '254.00',
-          state1: '待发货',
-          state2: '已完成'
-        },
-        {
-          name: '201725698845',
-          snum: '201725698845',
-          time: '2017-08-011 00：05',
-          back: '仅退款',
-          smoney: '306.00(含运费：6.00)',
-          bmoney: '6.00',
-          tmoney: '254.00',
-          state1: '待发货',
-          state2: '已完成'
-        },
-        {
           name: '201725698845',
           snum: '201725698845',
           time: '2017-08-011 00：05',
@@ -284,8 +203,26 @@
 
     ],
     mounted () {
-
-    },
+      this.$http.get('api/sup/bill/1', {params: {}}).then(res => {
+        console.log(res.data.data.list)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          this.tableData.push({
+            shopnum: arr[i].startTime,
+            name: arr[i].created,
+            num: arr[i].orderMoney,
+            num2: arr[i].refundMoney,
+            money: arr[i].clearingMoney,
+            time: arr[i].contrastBillStatus,
+            price: arr[i].transferStatus,
+            state: arr[i].transferStatus
+          })
+        }
+        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
+  },
     computed: {
 
     },

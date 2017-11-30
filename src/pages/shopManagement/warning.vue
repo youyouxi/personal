@@ -72,16 +72,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('api/inventory', {params: {
-      id: 1,
-      usableDay: 20,
-      salesDay: 4,
-      salesVolume: 13,
-      itemCode: 21015515151,
-      inventory: 222,
-      title: '大手大脚卡萨丁看手机',
-      imgMain: ''
-    }}).then(res => {
+    this.$http.get('api/inventory', {params: {}}).then(res => {
       console.log(res.data.data.list)
       var arr = res.data.data.list
       for (let i in arr) {
@@ -106,11 +97,6 @@ export default {
 
       }}).then(res => {
         console.log(1)
-        // this.tableData.num=res.itemCode,
-        // this.tableData.sales=res.salesDay,
-        // this.tableData.day=res.salesVolume,
-        // this.tableData.totle=res.inventory,
-        // this.tableData.fate=res.usableDay
       }, error => {
         console.log(2)
       })

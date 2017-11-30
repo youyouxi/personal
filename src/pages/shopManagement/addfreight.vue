@@ -21,6 +21,14 @@
 			<div class="telname">
 				<p><i style="color:#ff776d;margin-left:-6px;">*</i>模板名称：<input type="text" placeholder="请输入模板名称"/><span>20个字符以内</span></p>
 			</div>
+            <div class="montype">
+				<p>
+                    <span style='margin:0 10px 0 0;color:#2a3542;'>是否包邮：</span>
+                    <el-radio v-model="radio1" label="1" @change='yesshow'>自定义运费</el-radio>
+  				    <el-radio v-model="radio1" label="2" @change='isshow'>卖家承担运费</el-radio>
+                </p>
+			</div>
+            <div v-if="show==1">
 			<div class="montype">
 				<p>
                     <span style='margin:0 10px 0 0;color:#2a3542;'>计价方式：</span>
@@ -65,12 +73,15 @@
 					</div>
 				</div>
 			</div>
+            </div>
 		</div>
 	</div>
 </template>
 
 <script>
-    import $ from 'jquery'
+import $ from 'jquery'
+import axios from 'axios'
+import qs from 'qs'
 export default {
   data () {
     const generateData2 = _ => {
@@ -83,9 +94,9 @@ export default {
           key: index,
           pinyin: pinyin[index]
         })
-  })
+      })
       return data
-}
+    }
     return {
       list: [
         {
@@ -93,7 +104,9 @@ export default {
         }
       ],
       radio: '1',
+      radio1: '1',
       type: 1,
+      show: 1,
       border: 0,
       data2: generateData2(),
       value2: [],
@@ -140,6 +153,12 @@ export default {
     },
     liang () {
       this.type = 0
+    },
+    yesshow () {
+      this.show = 1
+    },
+    isshow () {
+      this.show = 0
     },
     addBorder (index) {
       console.log(index)

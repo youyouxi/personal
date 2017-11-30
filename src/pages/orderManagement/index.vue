@@ -29,7 +29,6 @@
         <i class="el-input__icon el-icon-circle-close" style="font-size:14px"></i>
         <span   style="cursor:pointer" @click='closeIt'>关闭</span>
       </div>
-
     </div>
     <el-collapse-transition>
     <div class="seniorSearch transition-box" v-if='showIt'>
@@ -47,7 +46,6 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
           <div class="seniorSearch-content">
             <div class="seniorSearch-content-child">
@@ -61,7 +59,6 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
           <div class="seniorSearch-content">
             <div class="seniorSearch-content-child">
@@ -75,9 +72,7 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
-
         </li>
         <li>
           <div class="seniorSearch-content">
@@ -92,7 +87,6 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
           <div class="seniorSearch-content">
             <div class="seniorSearch-content-child">
@@ -106,7 +100,6 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
           <div class="seniorSearch-content">
             <div class="seniorSearch-content-child">
@@ -120,9 +113,7 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
-
         </li>
         <li>
           <div class="seniorSearch-content">
@@ -137,7 +128,6 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
           <div class="seniorSearch-content">
             <div class="seniorSearch-content-child">
@@ -151,10 +141,7 @@
                   </el-option>
                 </el-select>
             </div>
-
           </div>
-
-
         </li>
       </ul>
     </div>
@@ -168,16 +155,12 @@
       </ul>
     </div>
     <div class="table-content" >
-
-
         <ul class="table-content-ul" v-for='(item,i) in 5'>
-
           <li>
             <div class="table-content-header">
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
+              <p>付款时间:<span>{{time}}</span></p>
+              <p>订单号:<span>{{num}}</span></p>
+              <p><span>{{state}}</span></p>
             </div>
               <div class="box">
                 <div class="box-img">
@@ -199,7 +182,6 @@
           </li>
         </ul>
     </div>
-
     </div>
   </div>
 </template>
@@ -210,6 +192,9 @@
   export default {
     data () {
       return {
+        time: '',
+        num: '',
+        state: '',
         tabletitle: [
           {
             name: '商品',
@@ -243,7 +228,6 @@
             name: '操作'
             //  titleWidth:"60",
           }
-
         ],
         tableData: {
           list: [
@@ -270,36 +254,6 @@
         tableHeight: 748,
         multipleSelection: [],
         tableItem: '全部订单',
-        list: [
-          {
-            name: '首页1',
-            icon: '',
-            index: '1',
-            path: 'main1',
-            children: []
-          },
-          {
-            name: '首页2',
-            icon: '',
-            index: '2',
-            path: 'main2',
-            children: []
-          },
-          {
-            name: '首页3',
-            icon: '',
-            index: '3',
-            path: 'main3',
-            children: []
-          },
-          {
-            name: '首页4',
-            icon: '',
-            index: '4',
-            path: 'main4',
-            children: []
-          }
-        ],
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -323,21 +277,13 @@
 
     ],
     mounted () {
-      this.$http.get('api/item/applylist', {params: {
-  
+      this.$http.get('api/sup/secondaryOrderNo/1', {params: {
       }}).then(res => {
         console.log(res.data.data.list)
         var arr = res.data.data.list
-        for (let i in arr) {
-          this.tableData.push({
-            Commodity: arr[i].itemCode,
-            num: arr[i].specsStr,
-            price: arr[i].totalPrice,
-            totle: arr[i].unitPrice,
-            state: arr[i].state,
-            time: arr[i].created
-          })
-        }
+        this.time = arr.payTime
+        this.num = arr.secondaryOrderNo
+        this.state = arr.status
         console.log(this.tableData)
       }, error => {
         console.log(2)

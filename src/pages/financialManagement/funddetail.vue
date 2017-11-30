@@ -4,22 +4,27 @@
 	  	<span class="b-title">打款详情</span><span class="back" @click="back">返回帐单列表</span>
 	</div>
 	<div class="shop-main">
-		<p>打款金额：<span>21564879635</span><span class='look'>查看账单</span></p>
-		<p>账单编号：<span>BM25876864</span></p>
-        <p>收款时间：<span>2017-09-08 11:30:23</span></p>
-        <p>打款人：<span>李立春</span></p>
-        <p>银行流水号：<span>1245454646654</span></p>
-        <p>付款截图：<p><img src='../../../static/images/test2.png'><p></p>
-        <p>备注：<span>无</span></p>
+		<p>打款金额：<span>{{money}}</span><span class='look'>查看账单</span></p>
+		<p>账单编号：<span>{{num}}</span></p>
+        <p>收款时间：<span>{{btime}}</span></p>
+        <p>打款人：<span>{{person}}</span></p>
+        <p>银行流水号：<span>{{account}}</span></p>
+        <p>付款截图：<p><img :src='imgs'></p></p>
+        <p>备注：<span>{{remark}}</span></p>
 	</div>
 </div>
 </template>
-
 <script lang="">
 export default{
   data () {
     return {
-
+      money: '',
+      num: '',
+      btime: '',
+      person: '',
+      account: '',
+      imgs: '',
+      remark: ''
     }
   },
   methods: {
@@ -28,20 +33,26 @@ export default{
     }
   },
   mounted () {
-    this.$http.get('api/sup/transferMsg/asd1231a3s2', {params: {}}).then(res => {
-      console.log(res.data.data.list)
-      var arr = res.data.data.list
-      for (let i in arr) {
-        this.tableData.push({
-          
-        })
+    this.$http.get('api/sup/transferMsg/asd1231a3s2', {params: {
+      billNo:''
+    }}).then(res => {
+      console.log(res.data.data)
+      var arr = res.data.data
+      this.money = arr.transferMoney
+      this.num = arr.transferMoney
+      this.btime = arr.collectionTime
+      this.person = arr.transferUserName
+      this.account = arr.bankFlowNo
+      this.imgs = arr.transferPicUrl
+      if (arr.transferRemark !== '') {
+        this.remark = arr.transferRemark
+      } else {
+        this.remark = '无'
       }
-      console.log(this.tableData)
     }, error => {
       console.log(2)
     })
-  },
-
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -50,10 +61,9 @@ export default{
     background:#F4F6F9;
 }
 .page-tit{
-	width: 100%;
 	font: 18px/36px "";
 	color:#2a3542;
-	padding: 10px 20px;
+	padding: 10px 20px; 
 }	
 .back{
 	color: #12A1F3;

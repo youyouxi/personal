@@ -4,13 +4,13 @@
 	  	<span class="b-title">订单详情</span><span class="back" @click="back">返回订单列表</span>
 	</div>
 	<div class="state bor">
-		<p><span>订单状态：<i style="color: #ff4747;font-weight: 600;">待接单</i></span><span>剩余付款时间：<i style="color: #ff4747;font-weight: 600;">23小时24分23秒</i></span></p>
-		<p style="font-size: 14px;margin-top: 15px;"><span>订单号：<i style="margin-right: 40px;">56465315318</i></span><span>买家：<i style="color:#12a1f3 ;">爱之园母婴旗舰店</i></span></p>
+		<p><span>订单状态：<i style="color: #ff4747;font-weight: 600;">待接单</i></span></p>
+		<p style="font-size: 14px;margin-top: 15px;"><span>订单号：<i style="margin-right: 40px;">{{childnum}}</i></span></p>
 	</div>
 	<div style="font:16px/32px '';padding: 0 20px;color: #2a3542;" class="bor">订单明细</div>
 	<div class="shop-main">
-		<p>收货信息：<span>南瓜粉</span>，<span>13525845698</span>，<span>浙江省西湖区紫霞街</span>，<span>0000000</span></p>
-		<p>报关信息：<span>南瓜粉</span>，<span>13525487854</span>，<span>4545114445</span></p>
+		<p>收货信息：<span>{{name}}</span>，<span>{{phone}}</span>，<span>{{province}}{{district}}{{adr}}</span>，<span>0000000</span></p>
+		<p>报关信息：<span>{{name}}</span>，<span>{{phone}}</span>，<span>{{ID}}</span></p>
 		<div class="shop-table">
 			<el-table
 			    :data="tableData"
@@ -61,8 +61,8 @@
 			</el-table>
 		</div>
 		<div class="totle">
-			<span class="beizhu">备注：<span>物品易潮，轻拿轻放，发顺风</span></span>
-			<span>支付金额：<span style="color: #ff776d;font-size: 20px;">1551.00</span>元</span>
+			<span class="beizhu">备注：<span>{{tips}}</span></span>
+			<span>支付金额：<span style="color: #ff776d;font-size: 20px;">{{tmoney}}</span>元</span>
 		</div>
 	</div>
     <el-button type="primary" size='medium'>接单</el-button>
@@ -73,6 +73,15 @@
 export default{
   data () {
     return {
+      childnum: '',
+      name: '',
+      phone: '',
+      province: '',
+      district: '',
+      adr: '',
+      ID: '身份证号码',
+      tips: '',
+      tmoney: '',
       tableData: [
         {
           name: '',
@@ -87,10 +96,39 @@ export default{
       ]
     }
   },
+  mounted () {
+    this.$http.get('api/sup/orderMsg/1255', {params: {}}).then(res => {
+      console.log(res.data.data)
+      var array = res.data.data
+      var arr = res.data.data.item
+      this.childnum = array.secondaryOrderNo
+      this.province = array.provinceName
+      this.district = array.areaName
+      this.adr = array.addrDetail
+      this.name = array.userName
+      this.phone = array.cellPhone
+      this.tipss = array.remark
+      this.tmoney = array.receivedPrice
+      if (array.remark !== '') {
+        this.tips = array.remark
+      } else {
+        this.tips = '无'
+      }
+      this.tableData.push({
+        num: arr.quantity,
+        discounts: arr.quantity,
+        money: arr.specsNumber,
+        hotel: arr.quantity
+      })
+      // console.log(this.tableData)
+    }, error => {
+      console.log(2)
+    })
+  },
   methods: {
     back () {
       window.history.back()
-    }
+    } 
   }
 
 }
@@ -116,7 +154,6 @@ export default{
   background:#F4F6F9;
 }
 .page-tit{
-	width: 100%;
 	font: 18px/36px "";
 	color:#2a3542;
 	padding: 10px 20px;

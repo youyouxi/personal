@@ -5,23 +5,23 @@
 	</div>
 	<div class='basics'>账单信息</div>
 	<div class="shop-main">
-		<p>对账状态：<span style='color:#ff776d;'>待确认</span></p>
-		<p>转账状态：<span>未付款</span></p>
-        <p>账单编号：<span>BM2515641</span></p>
-        <p>账单日期：<span>2017-09-08 11:30:23</span>至<span>2017-09-08 11:30:23</span></p>
-        <p>创建时间：<span>2017-09-08 11:30:23</span></p>
+		<p>对账状态：<span style='color:#ff776d;'>{{state1}}</span></p>
+		<p>转账状态：<span>{{state2}}</span></p>
+        <p>账单编号：<span>{{bill}}</span></p>
+        <p>账单日期：<span>{{btime}}</span>至<span>{{etime}}</span></p>
+        <p>创建时间：<span>{{ctime}}</span></p>
 	</div>
     <div class='basics'>金额信息</div>
     <div class="shop-main">
-		<p>订单金额（元）：<span>548200</span></p>
-		<p>退款金额（元）：<span>600</span></p>
-        <p>结算金额（元）：<span>2580000</span><span style='color:#12A1F3;margin-left:10px;'>查看流水</span></p>
+		<p>订单金额（元）：<span>{{money}}</span></p>
+		<p>退款金额（元）：<span>{{bmoney}}</span></p>
+        <p>结算金额（元）：<span>{{tmoney}}</span><span style='color:#12A1F3;margin-left:10px;'>查看流水</span></p>
 	</div>
     <div class='basics'>收款账号</div>
     <div class="shop-main spe">
-		<p>银行开户名：<span>小包贸易有限公司</span></p>
-		<p>公司银行账号：<span>5413213545846463131212365126515</span></p>
-        <p>开户银行支行名称：<span>某某支行</span><span></span></p>
+		<p>银行开户名：<span>{{name}}</span></p>
+		<p>公司银行账号：<span>{{banknum}}</span></p>
+        <p>开户银行支行名称：<span>{{bankname}}</span><span></span></p>
 	</div>
 </div>
 </template>
@@ -30,8 +30,41 @@
 export default{
   data () {
     return {
-
+      state1: '',
+      state2: '',
+      bill: '',
+      btime: '',
+      etime: '',
+      ctime: '',
+      money: '',
+      bmoney: '',
+      tmoney: '',
+      name: '',
+      banknum: '',
+      bankname: ''
     }
+  },
+  mounted () {
+    this.$http.get('api/sup/billMsg/asd1231a3s2', {params: {
+      billNo: ''
+    }}).then(res => {
+      console.log(res.data.data)
+      var arr = res.data.data
+      this.state1 = arr.contrastBillStatus
+      this.state2 = arr.transferStatus
+      this.bill = arr.billNo
+      this.btime = arr.startTime
+      this.etime = arr.endTime
+      this.ctime = arr.created
+      this.money = arr.orderMoney
+      this.bmoney = arr.refundMoney
+      this.tmoney = arr.clearingMoney
+      this.name = arr.bankAccount
+      this.banknum = arr.bankCard
+      this.bankname = arr.bankName
+    }, error => {
+      console.log(2)
+    })
   },
   methods: {
     back () {
@@ -47,7 +80,6 @@ export default{
     background:#F4F6F9;
 }
 .page-tit{
-	width: 100%;
 	font: 18px/36px "";
 	color:#2a3542;
 	padding: 10px 20px;
