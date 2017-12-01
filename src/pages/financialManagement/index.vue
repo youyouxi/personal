@@ -168,7 +168,7 @@
     data () {
       return {
         showIt: false,
-        tableHeight: 500,
+        tableHeight: 745,
         input: '',
         value9: '',
         tableData3: [{

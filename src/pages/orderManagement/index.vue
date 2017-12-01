@@ -155,28 +155,36 @@
       </ul>
     </div>
     <div class="table-content" >
-        <ul class="table-content-ul" v-for='(item,i) in 5'>
+        <ul class="table-content-ul" v-for='(item,index) in shopList'>
           <li>
             <div class="table-content-header">
-              <p>付款时间:<span>{{time}}</span></p>
-              <p>订单号:<span>{{num}}</span></p>
-              <p><span>{{state}}</span></p>
+              <p>付款时间:<span>{{item.time}}</span></p>
+              <p>订单号:<span>{{item.num}}</span></p>
+              <p><span>{{item.state1}}</span></p>
             </div>
               <div class="box">
                 <div class="box-img">
                     <img src='../../../static/images/test.png'/>
-                  <p>{{tableContent.box1}}</p>
+                  <p>{{item.shopname}}</p>
                   <p>2017年7月-2018年8月    2罐装</p>
                 </div>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <p class='sta'>
-                  <router-link to='/Complete'><span style='color:#79cd51'>{{tableContent.state1}}</span></router-link>
-                  <router-link to='/Details'><span style='color:#12a1f3'>{{tableContent.box4}}</span></router-link>
+                <p>{{item.price}}</p>
+                <p>{{item.tnum}}</p>
+                <p>
+                  <span>{{item.tmoney}}</span>
+                  <span>含运费：<i>{{item.freight}}</i></span>
+                  <span>总计：<i>{{item.tnum}}</i>件</span>
                 </p>
-                <p>{{tableContent.box3}}</p>
+                <p>
+                  <span>{{item.name}}</span>
+                  <span>{{item.phone}}</span>
+                  <span>{{item.adress}}</span>
+                </p>
+                <p class='sta'>
+                  <router-link to='/Complete'><span class='trant'>{{item.state}}</span></router-link>
+                  <router-link to='/Details'><span style='color:#12a1f3' :sid='item.id' @click="toDetail($event)">订单详情</span></router-link>
+                </p>
+                <p>{{item.tips}}</p>
                 <p><el-button type="primary" size='small'>接单</el-button></p>
               </div>
           </li>
@@ -192,9 +200,19 @@
   export default {
     data () {
       return {
-        time: '',
-        num: '',
-        state: '',
+        shopList: [],
+        list: [
+          {
+            box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
+            box2: '200333',
+            box3: '请发顺丰快递',
+            box4: '订单详情',
+            state1: '交易完成',
+            time: '',
+            num: '',
+            state: '',
+            id: 1
+          }],
         tabletitle: [
           {
             name: '商品',
@@ -242,13 +260,16 @@
             }
           ]
         },
-        tableContent: {
+        /* tableContent: {
           box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
           box2: '200333',
           box3: '请发顺丰快递',
           box4: '订单详情',
-          state1: '交易完成'
-        },
+          state1: '交易完成',
+          time:'',
+          num:'',
+          state:''
+        }, */
         showIt: false,
         checked: false,
         tableHeight: 748,
@@ -277,14 +298,47 @@
 
     ],
     mounted () {
-      this.$http.get('api/sup/secondaryOrderNo/1', {params: {
-      }}).then(res => {
-        console.log(res.data.data.list)
+      this.$http.get('api/sup/secondaryOrderNo/1', {params: {}}).then(res => {
+        console.log(res.data.data.list[1].item)
         var arr = res.data.data.list
-        this.time = arr.payTime
-        this.num = arr.secondaryOrderNo
-        this.state = arr.status
-        console.log(this.tableData)
+        console.log(arr)
+        var items = res.data.data.list[1].item
+        for (let i in arr) {
+          if (arr[i].status == 0) {
+            arr[i].status = '待支付'
+          } else if (arr[i].status == 1) {
+            arr[i].status = '待发货'
+          } else if (arr[i].status == 2) {
+            arr[i].status = '已完成'
+          } else if (arr[i].status == 3) {
+            arr[i].status = '已取消'
+          }
+          if (arr[i].supStatus == 0) {
+            arr[i].supStatus = '未接单'
+          } else if (arr[i].supStatus == 1) {
+            arr[i].supStatus = '已接单'
+          }
+          this.shopList.push({
+            time: arr[i].created,
+            num: arr[i].secondaryOrderNo,
+            state: arr[i].status,
+            state1: arr[i].supStatus,
+            name: arr[i].userName,
+            phone: arr[i].cellPhone,
+            adress: arr[i].addressMsg,
+            tmoney: arr[i].orderPrice,
+            tips: arr[i].remark,
+            shopname: items[i].itemName,
+            price: items[i].price,
+            tnum: items[i].quantity
+          })
+        }
+        // for (let i in items) {
+        //   this.shopList.push({
+        //     shopname: items[i].producedDate
+        //   })
+        // }
+        console.log(this.shopList)
       }, error => {
         console.log(2)
       })
@@ -296,6 +350,17 @@
 
     },
     methods: {
+      toDetail (e) {
+        var id = $(e.target).attr('sid')
+        localStorage.setItem('id', id)
+        /* this.$http.get('api/sup/secondaryOrderNo', {params: {
+          id:id
+        }}).then(res => {
+
+        }, error => {
+
+        }) */
+      },
       showSeach () {
         this.showIt = !this.showIt
         if (this.showIt) {
@@ -353,5 +418,18 @@
     display: block;
     cursor:pointer 
   }
+}
+.box{
+  border-bottom:1px solid #d6e2ed;
+  p{
+    span{
+      font:14px/24px '';
+      color:#6e7381;
+      display: block;
+    }
+  }
+}
+.red{
+  color:red;
 }
 </style>

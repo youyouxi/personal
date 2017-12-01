@@ -64,6 +64,7 @@
 			<span class="beizhu">备注：<span>{{tips}}</span></span>
 			<span>支付金额：<span style="color: #ff776d;font-size: 20px;">{{tmoney}}</span>元</span>
 		</div>
+		<p><span>下单时间：<i>{{ctime}}</i></span><span style='margin-left:30px;'>支付时间：<i>{{ptime}}</i></span></p>
 	</div>
     <el-button type="primary" size='medium'>接单</el-button>
 </div>
@@ -82,25 +83,28 @@ export default{
       ID: '身份证号码',
       tips: '',
       tmoney: '',
-      tableData: [
-        {
-          name: '',
-          price: '99.00',
-          amount: '2',
-          num: '4件',
-          freight: '15.00',
-          discounts: '-￥0.00',
-          money: '187.00',
-          hotel: '小宝贸易有限公司'
-        }
-      ]
+      ctime: '',
+      ptime: '',
+      tableData: []
+      // tableData: [
+      //   {
+      //     name: '',
+      //     price: '99.00',
+      //     amount: '2',
+      //     num: '4件',
+      //     freight: '15.00',
+      //     discounts: '-￥0.00',
+      //     money: '187.00',
+      //     hotel: '小宝贸易有限公司'
+      //   }
+      // ]
     }
   },
   mounted () {
     this.$http.get('api/sup/orderMsg/1255', {params: {}}).then(res => {
-      console.log(res.data.data)
+      console.log(res.data.data.item)
       var array = res.data.data
-      var arr = res.data.data.item
+      var list = res.data.data.item
       this.childnum = array.secondaryOrderNo
       this.province = array.provinceName
       this.district = array.areaName
@@ -109,18 +113,16 @@ export default{
       this.phone = array.cellPhone
       this.tipss = array.remark
       this.tmoney = array.receivedPrice
+      this.ctime = array.created
+      this.ptime = array.payTime
       if (array.remark !== '') {
         this.tips = array.remark
       } else {
         this.tips = '无'
       }
       this.tableData.push({
-        num: arr.quantity,
-        discounts: arr.quantity,
-        money: arr.specsNumber,
-        hotel: arr.quantity
+        price: list.quantity
       })
-      // console.log(this.tableData)
     }, error => {
       console.log(2)
     })
@@ -128,7 +130,7 @@ export default{
   methods: {
     back () {
       window.history.back()
-    } 
+    }
   }
 
 }

@@ -115,7 +115,9 @@
                 label="账单编号"
                 width='200px'
                 >
-                <template slot-scope="scope"><router-link to='/FinancialDetails'><span style='color:#12a1f3;;'>{{shopnum}}</span></router-link></template>
+                <template slot-scope="scope">
+                  <router-link to='/FinancialDetails'><span>{{scope.row.num}}</span></router-link>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="btime"
@@ -190,7 +192,6 @@
         input: '',
         tableData: [],
         tableItem: '全部账单',
-        shopnum: '00000000',
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -214,24 +215,49 @@
 
     ],
     mounted () {
-    this.$http.get('api/sup/bill/1', {params: {}}).then(res => {
-      console.log(res.data.data.list)
-      var arr = res.data.data.list
-      for (let i in arr) {
-        this.tableData.push({
-          btime: arr[i].startTime,
-          time: arr[i].created,
-          money: arr[i].orderMoney,
-          bmoney: arr[i].refundMoney,
-          tmoney: arr[i].clearingMoney,
-          state1: arr[i].contrastBillStatus,
-          state2: arr[i].transferStatus
-        })
-      }
-      console.log(this.tableData)
-    }, error => {
-      console.log(2)
-    })
+      this.$http.get('api/sup/bill/1', {params: {}}).then(res => {
+        console.log(res.data.data.list)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          if (arr[i].contrastBillStatus == 0) {
+            arr[i].contrastBillStatus = '待确认'
+          } else if (arr[i].contrastBillStatus == 1) {
+            arr[i].contrastBillStatus = '确认账单正确'
+          } else if (arr[i].contrastBillStatus == 2) {
+            arr[i].contrastBillStatus = '确认账单错误'
+          }
+          if (arr[i].transferStatus == 0) {
+            arr[i].transferStatus = '资金审批待审批'
+          } else if (arr[i].transferStatus == 1) {
+            arr[i].transferStatus = '资金审批中'
+          } else if (arr[i].transferStatus == 2) {
+            arr[i].transferStatus = '资金审批成功'
+          }else if (arr[i].transferStatus == 3) {
+            arr[i].transferStatus = '资金审批失败'
+          }else if (arr[i].transferStatus == 4) {
+            arr[i].transferStatus = '已付款'
+          }else if (arr[i].transferStatus == 5) {
+            arr[i].transferStatus = '未付款'
+          }else if (arr[i].transferStatus == 6) {
+            arr[i].transferStatus = '待收款'
+          }else if (arr[i].transferStatus == 7) {
+            arr[i].transferStatus = '已收款'
+          }
+          this.tableData.push({
+            num: arr[i].billNo,
+            btime: arr[i].startTime,
+            time: arr[i].created,
+            money: arr[i].orderMoney,
+            bmoney: arr[i].refundMoney,
+            tmoney: arr[i].clearingMoney,
+            state1: arr[i].contrastBillStatus,
+            state2: arr[i].transferStatus
+          })
+        }
+        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
   },
     computed: {
 
@@ -293,7 +319,7 @@
   position: relative;
   height:93.5%;
     .el-table__row{
-        .el-table_1_column_1{
+        .el-table_1_column_1 span{
             color:#12a1f3;
             cursor:pointer;
         }  

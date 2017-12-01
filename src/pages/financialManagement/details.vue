@@ -50,8 +50,30 @@ export default{
     }}).then(res => {
       console.log(res.data.data)
       var arr = res.data.data
-      this.state1 = arr.contrastBillStatus
-      this.state2 = arr.transferStatus
+      if (arr.contrastBillStatus == 0) {
+        this.state1 = '待确认'
+      } else if (arr.contrastBillStatus == 1) {
+        this.state1 = '确认账单正确'
+      } else if (arr.contrastBillStatus == 2) {
+        this.state1 = '确认账单错误'
+      }
+      if (arr.transferStatus == 0) {
+        this.state2 = '资金审批待审批'
+      } else if (arr.transferStatus == 1) {
+        this.state2 = '资金审批中'
+      } else if (arr.transferStatus == 2) {
+        this.state2 = '资金审批成功'
+      } else if (arr.transferStatus == 3) {
+        this.state2 = '资金审批失败'
+      } else if (arr.transferStatus == 4) {
+        this.state2 = '已付款'
+      } else if (arr.transferStatus == 5) {
+        this.state2 = '未付款'
+      } else if (arr.transferStatus == 6) {
+        this.state2 = '待收款'
+      } else if (arr.transferStatus == 7) {
+        this.state2 = '已收款'
+      }
       this.bill = arr.billNo
       this.btime = arr.startTime
       this.etime = arr.endTime

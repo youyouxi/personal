@@ -158,27 +158,8 @@
         state2: '',
         showIt: false,
         tableHeight: 745,
-        tableData: [{
-          shopnum: '2017021424058141',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          num: '2罐装',
-          num2: '￥256',
-          money: '9654.00',
-          time: '2017-02-15 00:50:00',
-          price: '￥657',
-          state2: '已完成'
-        }],
-        tableData2: [{
-          name: '201725698845',
-          snum: '201725698845',
-          time: '2017-08-011 00：05',
-          back: '仅退款',
-          smoney: '306.00(含运费：6.00)',
-          bmoney: '6.00',
-          tmoney: '254.00',
-          state1: '待发货',
-          state2: '已完成'
-        }],
+        tableData: [],
+        tableData2: [],
         tableItem: '订单清单',
         options: [{
           value: '选项1',
@@ -203,22 +184,90 @@
 
     ],
     mounted () {
-      this.$http.get('api/sup/bill/1', {params: {}}).then(res => {
+      this.$http.get('api/sup/bill/orderMsg/1', {params: {}}).then(res => {
         console.log(res.data.data.list)
         var arr = res.data.data.list
         for (let i in arr) {
+          if (arr[i].status == 0) {
+            arr[i].status = '待支付'
+          } else if (arr[i].status == 1) {
+            arr[i].status = '待发货'
+          } else if (arr[i].status == 2) {
+            arr[i].status = '待收货'
+          } else if (arr[i].status == 3) {
+            arr[i].status = '已完成'
+          } else if (arr[i].status == 4) {
+            arr[i].status = '已取消'
+          }
+          console.log(arr.status)
           this.tableData.push({
-            shopnum: arr[i].startTime,
-            name: arr[i].created,
-            num: arr[i].orderMoney,
-            num2: arr[i].refundMoney,
-            money: arr[i].clearingMoney,
-            time: arr[i].contrastBillStatus,
-            price: arr[i].transferStatus,
-            state: arr[i].transferStatus
+            shopnum: arr[i].secondaryOrderNo,
+            name: arr[i].itemName,
+            num: arr[i].specsNumber + '罐装',
+            num2: arr[i].quantity,
+            money: arr[i].price,
+            time: arr[i].payTime,
+            price: arr[i].receivedPrice,
+            state2: arr[i].status
           })
         }
-        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
+      this.$http.get('api/sup/bill/orderMsg/refund/2', {params: {}}).then(res => {
+        var arr = res.data.data.list
+        for (let i in arr) {
+          if (arr[i].refundType == 0) {
+            arr[i].refundType = '仅退款'
+          } else if (arr[i].refundType == 1) {
+            arr[i].refundType = '申请补偿'
+          } else if (arr[i].refundType == 2) {
+            arr[i].refundType = '退货退款'
+          }
+          if (arr[i].orderStatus == 0) {
+            arr[i].orderStatus = '待支付'
+          } else if (arr[i].orderStatus == 1) {
+            arr[i].orderStatus = '待发货'
+          } else if (arr[i].orderStatus == 2) {
+            arr[i].orderStatus = '待收货'
+          } else if (arr[i].orderStatus == 3) {
+            arr[i].orderStatus = '已完成'
+          } else if (arr[i].orderStatus == 4) {
+            arr[i].orderStatus = '已取消'
+          }
+          if (arr[i].afterStatus == 0) {
+            arr[i].afterStatus = '待审核'
+          } else if (arr[i].afterStatus == 1) {
+            arr[i].afterStatus = '供应商拒绝'
+          } else if (arr[i].afterStatus == 2) {
+            arr[i].afterStatus = '供应商同意'
+          } else if (arr[i].afterStatus == 3) {
+            arr[i].afterStatus = '同意退款'
+          } else if (arr[i].afterStatus == 4) {
+            arr[i].afterStatus = '拒绝退款'
+          } else if (arr[i].afterStatus == 5) {
+            arr[i].afterStatus = '待寄回'
+          } else if (arr[i].afterStatus == 6) {
+            arr[i].afterStatus = '退款成功'
+          } else if (arr[i].afterStatus == 7) {
+            arr[i].afterStatus = '退款失败'
+          } else if (arr[i].afterStatus == 8) {
+            arr[i].afterStatus = '退款关闭'
+          } else if (arr[i].afterStatus == 9) {
+            arr[i].afterStatus = '撤销退款'
+          }
+          this.tableData2.push({
+            name: arr[i].refundNo,
+            snum: arr[i].secondaryOrderNo,
+            time: arr[i].created,
+            back: arr[i].refundType,
+            smoney: arr[i].price,
+            bmoney: arr[i].price,
+            tmoney: arr[i].refundPrice,
+            state1: arr[i].orderStatus,
+            state2: arr[i].afterStatus
+          })
+        }
       }, error => {
         console.log(2)
       })

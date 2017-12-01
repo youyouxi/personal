@@ -133,14 +133,17 @@
               </el-table-column>
               <el-table-column
                 label="商品"
-                width='500px'
+                width='100px'
                 >
                 <template slot-scope="scope">
-                  <div class="commodity">
-                    <img src="../../../static/images/shop.png" alt="">
-                    <p>海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货</p>
-                  </div>
+                  <img :src="scope.row.pic"/>
                 </template>
+              </el-table-column>
+              <el-table-column
+                label=""
+                prop="name"
+                width='400px'
+                >
               </el-table-column>
               <el-table-column
                 prop="Commodity"
@@ -163,7 +166,7 @@
                 >
               </el-table-column>
               <el-table-column
-                prop="state"
+                prop="states"
                 label="状态"
                 >
                 </el-table-column>
@@ -177,7 +180,7 @@
                 >
                 <template slot-scope="scope">
                     <div class="operation-box">
-                    <p class='operation'>编辑商品</p>
+                    <p class='operation' @click="addGoods">编辑商品</p>
                     <p class='operation'>查看报价</p>
                     </div>
                 </template>
@@ -204,73 +207,7 @@
         //  tableHeight:745,
         multipleSelection: [],
         outerHeight: 240,
-        tableData:[],
-        // tableData3: [{
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // },
-        // {
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // },
-        // {
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // },
-        // {
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // },
-        // {
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // },
-        // {
-        //   date: '2016-05-03',
-        //   img: '',
-        //   Commodity: '200333',
-        //   num: '4包装',
-        //   price: '320/10',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   state: '待上架',
-        //   totle: '52874',
-        //   time: '2017-08-08 08:08:08'
-        // }],
+        tableData: [],
         tableItem: '全部商品',
         options: [{
           value: '选项1',
@@ -292,18 +229,28 @@
       }
     },
     mounted () {
-    this.$http.get('api/item/applylist', {params: {
-      
+      this.$http.get('api/item/applylist/2', {params: {
     }}).then(res => {
       console.log(res.data.data.list)
       var arr = res.data.data.list
       for (let i in arr) {
+        if (arr[i].state == 4) {
+          arr[i].state = '停售中'
+        } else if (arr[i].state == 1) {
+          arr[i].state = '待上架'
+        } else if (arr[i].state == 2) {
+          arr[i].state = '出售中'
+        } else if (arr[i].state == 3) {
+          arr[i].state = '已下架'
+        }
         this.tableData.push({
+          pic: arr[i].imgMain,
+          name: arr[i].title,
           Commodity: arr[i].itemCode,
           num: arr[i].specsStr,
           price: arr[i].totalPrice,
           totle: arr[i].unitPrice,
-          state: arr[i].state,
+          states: arr[i].state,
           time: arr[i].created
         })
       }
@@ -370,6 +317,14 @@
 </script>
 <style lang='scss'>
 @import '../../../static/style/order.scss';
+.shopmanage{
+  .el-table__row{
+  .el-table_1_column_3{
+    color:#12a1f3;
+    padding-right:20px; 
+  }
+}
+}
 </style>
 
 <style lang="scss" scoped>

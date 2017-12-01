@@ -28,45 +28,45 @@
     </div>
     <div class="supplier-item-content" >
       <el-table
-              ref="multipleTable"
-              v-if='tableItem == "全部"'
-              :data="tableData"
-              style="width: 100%;"
-               @selection-change="handleSelectionChange"
-              :height='tableHeight'
-              border
-              >
-              <el-table-column
-                style="border-right:none"
-                prop="name"
-                label="模板名称"
-                width='320px'
-                >
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="配送区域"
-                width='800px'
-                >
-              </el-table-column>
-              <el-table-column
-                prop="Commodity"
-                label="计价方式"
-                >
-              </el-table-column>
-              <el-table-column
-                prop='dongjie'
-                label="操作"
-                >
-                <template slot-scope="scope">
-                <div class="operation-box">
-                  <router-link to='/AddFreight'><p class='operation'>编辑</p></router-link>
-                  <p class='operation'>删除</p>
-                  <!-- <p class='operation'  @click='jiedong'>编辑</p> -->
-                </div>
-               </template>
-              </el-table-column>
-            </el-table>
+          ref="multipleTable"
+          v-if='tableItem == "全部"'
+          :data="tableData"
+          style="width: 100%;"
+            @selection-change="handleSelectionChange"
+          :height='tableHeight'
+          border
+          >
+          <el-table-column
+            style="border-right:none"
+            prop="name"
+            label="模板名称"
+            width='320px'
+            >
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="配送区域"
+            width='800px'
+            >
+          </el-table-column>
+          <el-table-column
+            prop="Commodity"
+            label="计价方式"
+            >
+          </el-table-column>
+          <el-table-column
+            prop='dongjie'
+            label="操作"
+            >
+            <template slot-scope="scope">
+            <div class="operation-box">
+              <router-link to='/AddFreight'><p class='operation'>编辑</p></router-link>
+              <p class='operation'>删除</p>
+              <!-- <p class='operation'  @click='jiedong'>编辑</p> -->
+            </div>
+            </template>
+          </el-table-column>
+        </el-table>
     </div>
     <div class="pageNum">
       <pagenation></pagenation>
@@ -139,7 +139,7 @@
 
     ],
     mounted () {
-      this.$http.get('api/list/0', {params: {}}).then(res => {
+      this.$http.get('api/list/1', {params: {}}).then(res => {
         console.log(res.data.data.list)
         var arr = res.data.data.list
         for (let i in arr) {

@@ -20,7 +20,7 @@
                 <el-table-column
                 label="商品"
                 width="60">
-                <template scope="scope">
+                <template slot-scope="scope">
                   <img :src="scope.row.pic"/>
                 </template>
                 </el-table-column>
@@ -121,7 +121,8 @@ export default {
 </script>
 <style lang='scss'>
 /*.el-table--border td, .el-table--border th{border:none;}*/
-.el-table__header{
+.kucunyujing{
+  .el-table__header{
   .el-table_1_column_1{
     border-right:none;
   }
@@ -134,6 +135,7 @@ export default {
     color:#12a1f3;
     padding-right:20px; 
   }
+}
 }
 </style>
 
