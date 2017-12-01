@@ -5,11 +5,10 @@
             <div class='title'>订单详情<span @click='back'>返回供货列表</span></div>
             <div>
                 <div class="state">
-                    <p>订单状态：<span style="color: #ff4747;">已完成</span></p>
+                    <p>订单状态：<span style="color: #ff4747;">{{state}}</span></p>
                     <p style="font-size: 14px;">
-                        <span>订单号：</span><span style="margin-right: 40px;">56465315318</span>
-                        <span>发货时间：</span><span style="margin-right: 40px;">2017-10-21 20:13:13</span>
-                        <span>买家：</span><span style="color:#12a1f3 ;">爱之园母婴旗舰店</span>
+                        <span>订单号：</span><span style="margin-right: 40px;">{{childnum}}</span>
+                        <span>发货时间：</span><span style="margin-right: 40px;">{{stime}}</span>
                     </p>
                 </div>
                 <div class="logistics">
@@ -24,8 +23,8 @@
                 </div>
                 <div class="stitle">订单明细</div>
                 <div class="shop-main">
-                    <p>收货信息：<span>南瓜粉</span>，<span>13525845698</span>，<span>浙江省西湖区紫霞街</span>，<span>0000000</span></p>
-                    <p>报关信息：<span>南瓜粉</span>，<span>13525487854</span>，<span>4545114445</span></p>
+                    <p>收货信息：<span>{{name}}</span>，<span>{{phone}}</span>，<span>{{province}}{{district}}{{adr}}</span>，<span>0000000</span></p>
+                    <p>报关信息：<span>{{name}}</span>，<span>{{phone}}</span>，<span>{{ID}}</span></p>
                     <div class="shop-table">
                         <el-table
                             :data="tableData"
@@ -67,12 +66,12 @@
                         </el-table>
                     </div>
                     <div class="beizhu">
-                        <span>备注：<span>物品易潮，轻拿轻放，发顺风</span></span>
+                        <span>备注：<span>{{tips}}</span></span>
                     </div>
                     <div class="s-time">
-                        <p><span>下单时间：<i>2017-09-26 10:17:30 </i></span><span>订单来源：<i>APP订单</i></span></p>
-                        <p><span>支付时间：<i>2017-09-26 10:17:30 </i></span><span>支付编码：<i>21315315315</i></span></p>
-                        <p><span>支付平台：<i>支付宝</i></span><span>接单时间：<i>2017-09-26 10:17:30 </i></span></p>
+                        <p><span>下单时间：<i>{{ctime}}</i></span><span>订单来源：<i>APP订单</i></span></p>
+                        <p><span>支付时间：<i>{{ptime}}</i></span><span>支付编码：<i>{{pnum}}</i></span></p>
+                        <p><span>支付平台：<i>{{pay}}</i></span><span>接单时间：<i>{{atime}}</i></span></p>
                     </div>
                 </div>
                 </div>
@@ -89,6 +88,22 @@ export default {
   data () {
     return {
       activeName: 'first',
+      childnum: '',
+      name: '',
+      phone: '',
+      province: '',
+      district: '',
+      adr: '',
+      ID: '身份证号码',
+      tips: '',
+      tmoney: '',
+      ctime: '',
+      ptime: '',
+      state: '',
+      stime: '',
+      pay: '',
+      atime: '',
+      pnum: '',
       tableData: [
         {
           name: '',
@@ -100,6 +115,46 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.$http.get('api/sup/orderMsg/2', {params: {}}).then(res => {
+      console.log(res.data.data.item)
+      var array = res.data.data
+        // var list = res.data.data.item
+      this.stime = array.shippingTime
+      this.pay = array.payMode
+      this.atime = array.acceptOrderTime
+      this.pnum = array.payNo
+      this.childnum = array.secondaryOrderNo
+      this.province = array.provinceName
+      this.district = array.areaName
+      this.adr = array.addrDetail
+      this.name = array.userName
+      this.phone = array.cellPhone
+      this.tipss = array.remark
+      this.tmoney = array.receivedPrice
+      this.ctime = array.created
+      this.ptime = array.payTime
+      if (array.status == 0) {
+        array.status = '待支付'
+      } else if (array.status == 1) {
+        array.status = '待发货'
+      } else if (array.status == 2) {
+        array.status = '待收货'
+      } else if (array.status == 3) {
+        array.status = '已完成'
+      } else if (array.status == 4) {
+        array.status = '已取消'
+      }
+      this.state = array.status
+      if (array.remark !== '') {
+        this.tips = array.remark
+      } else {
+        this.tips = '无'
+      }
+    }, error => {
+      console.log(2)
+    })
   },
   methods: {
     back () {

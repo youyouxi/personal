@@ -4,7 +4,7 @@
 	  	<span class="b-title">订单详情</span><span class="back" @click="back">返回订单列表</span>
 	</div>
 	<div class="state bor">
-		<p><span>订单状态：<i style="color: #ff4747;font-weight: 600;">待接单</i></span></p>
+		<p><span>订单状态：<i style="color: #ff4747;font-weight: 600;">{{state}}</i></span></p>
 		<p style="font-size: 14px;margin-top: 15px;"><span>订单号：<i style="margin-right: 40px;">{{childnum}}</i></span></p>
 	</div>
 	<div style="font:16px/32px '';padding: 0 20px;color: #2a3542;" class="bor">订单明细</div>
@@ -85,6 +85,7 @@ export default{
       tmoney: '',
       ctime: '',
       ptime: '',
+      state: '',
       tableData: []
       // tableData: [
       //   {
@@ -104,7 +105,7 @@ export default{
     this.$http.get('api/sup/orderMsg/1255', {params: {}}).then(res => {
       console.log(res.data.data.item)
       var array = res.data.data
-      var list = res.data.data.item
+      // var list = res.data.data.item
       this.childnum = array.secondaryOrderNo
       this.province = array.provinceName
       this.district = array.areaName
@@ -115,14 +116,26 @@ export default{
       this.tmoney = array.receivedPrice
       this.ctime = array.created
       this.ptime = array.payTime
+      if (array.status == 0) {
+        array.status = '待支付'
+      } else if (array.status == 1) {
+        array.status = '待发货'
+      } else if (array.status == 2) {
+        array.status = '待收货'
+      } else if (array.status == 3) {
+        array.status = '已完成'
+      } else if (array.status == 4) {
+        array.status = '已取消'
+      }
+      this.state = array.status
       if (array.remark !== '') {
         this.tips = array.remark
       } else {
         this.tips = '无'
       }
-      this.tableData.push({
-        price: list.quantity
-      })
+      // this.tableData.push({
+      //   price: list.quantity
+      // })
     }, error => {
       console.log(2)
     })
