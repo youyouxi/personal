@@ -150,7 +150,6 @@
 
     <div class="table-header">
       <ul class="table-header-ul">
-
         <li v-for='(item,i) in tabletitle' :style="'width:' + item.titleWidth + 'px'" ><p>{{item.name}}</p></li>
       </ul>
     </div>
@@ -163,13 +162,15 @@
               <p><span>{{item.state1}}</span></p>
             </div>
               <div class="box">
-                <div class="box-img">
-                    <img src='../../../static/images/test.png'/>
-                  <p>{{item.shopname}}</p>
-                  <p>2017年7月-2018年8月    2罐装</p>
+                <div class='box-shop' v-for='(top,index) in item.toplist'>
+                  <div class="box-img">
+                    <img :src='top.itemImg'/>
+                    <p>{{top.itemName}}</p>
+                    <p>{{top.producedDate}}    {{top.quantity}}罐装</p>
+                  </div>
+                  <p>{{top.price}}</p>
+                  <p>{{top.quantity}}</p>
                 </div>
-                <p>{{item.price}}</p>
-                <p>{{item.tnum}}</p>
                 <p>
                   <span>{{item.tmoney}}</span>
                   <span>含运费：<i>{{item.freight}}</i></span>
@@ -201,18 +202,6 @@
     data () {
       return {
         shopList: [],
-        list: [
-          {
-            box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-            box2: '200333',
-            box3: '请发顺丰快递',
-            box4: '订单详情',
-            state1: '交易完成',
-            time: '',
-            num: '',
-            state: '',
-            id: 1
-          }],
         tabletitle: [
           {
             name: '商品',
@@ -260,16 +249,6 @@
             }
           ]
         },
-        /* tableContent: {
-          box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          box2: '200333',
-          box3: '请发顺丰快递',
-          box4: '订单详情',
-          state1: '交易完成',
-          time:'',
-          num:'',
-          state:''
-        }, */
         showIt: false,
         checked: false,
         tableHeight: 748,
@@ -299,10 +278,8 @@
     ],
     mounted () {
       this.$http.get('api/sup/secondaryOrderNo/1', {params: {}}).then(res => {
-        console.log(res.data.data.list[1].item)
+        console.log(res)
         var arr = res.data.data.list
-        console.log(arr)
-        var items = res.data.data.list[1].item
         for (let i in arr) {
           if (arr[i].status == 0) {
             arr[i].status = '待支付'
@@ -328,17 +305,9 @@
             adress: arr[i].addressMsg,
             tmoney: arr[i].orderPrice,
             tips: arr[i].remark,
-            shopname: items[i].itemName,
-            price: items[i].price,
-            tnum: items[i].quantity
+            toplist: arr[i].item
           })
         }
-        // for (let i in items) {
-        //   this.shopList.push({
-        //     shopname: items[i].producedDate
-        //   })
-        // }
-        console.log(this.shopList)
       }, error => {
         console.log(2)
       })
