@@ -17,12 +17,12 @@
                         <p><span>订单编号：</span><span>1234567990</span></p>
                     </div>
                     <div class="rowone">
-                        <p><span>买家：</span><span style="color: #12A1F3;">小宝贸易</span></p>
-                        <p><span>供应商：</span><span style="color: #12A1F3;">小宝贸易111</span></p>
+                        <p><span>买家：</span><span style="color: #12A1F3;">{{person}}</span></p>
+                        <p><span>供应商：</span><span style="color: #12A1F3;">{{supplier}}</span></p>
                     </div>
                     <div class="rowone">
-                        <p><span>订单来源：</span><span>APP订单</span></p>
-                        <p><span>支付平台：</span><span>支付宝</span></p>
+                        <p><span>订单来源：</span><span>{{from}}</span></p>
+                        <p><span>支付平台：</span><span>{{from1}}</span></p>
                     </div>
                 </div>
                 <div class="basics">
@@ -31,11 +31,11 @@
                 <div class="pageone">
                     <div class="rowone">
                         <p><span>售后类型：</span><span style="color:  #FF5656;">仅退款</span></p>
-                        <p><span>退款金额：</span><span style="color:  #FF5656;">331.98</span><span>元</span></p>
+                        <p><span>退款金额：</span><span style="color:  #FF5656;">{{money}}</span><span>元</span></p>
                     </div>
                     <div class="rowone">
-                        <p><span>退款数量：</span><span>2</span></p>
-                        <p><span>订单编号：</span><span>1234567990</span></p>
+                        <p><span>退款数量：</span><span>{{num}}</span></p>
+                        <p><span>订单编号：</span><span>{{quantity}}</span></p>
                     </div>
                     <div class="rowone">
                         <p><span>退款原因：</span><span style="color: #12A1F3;">爆罐</span></p>
@@ -51,7 +51,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="basics" style='margin-top:90px;'>
+                <div class="basics" style='margin-top:100px;'>
                     售后记录
                 </div>
                 <div class="pageone1">
@@ -112,8 +112,22 @@ export default {
     return {
       type: 'A',
       dialogImageUrl: '',
-      dialogVisible: false
+      dialogVisible: false,
+      person: '',
+      supplier: '',
+      from: '',
+      from1: '',
+      money: '',
+      num: '',
+      quantity: ''
     }
+  },
+  mounted () {
+    this.$http.get('api/sup/refundMsg/1', {params: {}}).then(res => {
+      console.log(res.data.data)
+      var arr = res.data.data
+      this.money = arr.refundPrice
+    })
   },
   methods: {
     back () {

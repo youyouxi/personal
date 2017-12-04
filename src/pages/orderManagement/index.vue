@@ -160,16 +160,19 @@
               <p>付款时间:<span>{{item.time}}</span></p>
               <p>订单号:<span>{{item.num}}</span></p>
               <p><span>{{item.state1}}</span></p>
+              <p style='float:right;margin-right:20px'>备注</p>
             </div>
               <div class="box">
-                <div class='box-shop' v-for='(top,index) in item.toplist'>
-                  <div class="box-img">
-                    <img :src='top.itemImg'/>
-                    <p>{{top.itemName}}</p>
-                    <p>{{top.producedDate}}    {{top.quantity}}罐装</p>
+                <div class='s-box'>
+                  <div class='box-shop' v-for='(top,index) in item.toplist'>
+                    <div class="box-img">
+                      <img :src='top.itemImg'/>
+                      <p>{{top.itemName}}</p>
+                      <p>{{top.producedDate}}    {{top.quantity}}罐装</p>
+                    </div>
+                    <p style='width:22%'>{{top.price}}</p>
+                    <p style='width:22%'>{{top.quantity}}</p>
                   </div>
-                  <p>{{top.price}}</p>
-                  <p>{{top.quantity}}</p>
                 </div>
                 <p>
                   <span>{{item.tmoney}}</span>
@@ -396,6 +399,13 @@
       color:#6e7381;
       display: block;
     }
+  }
+  .s-box{
+    width:44.8%;
+    float:left;
+      .box-shop{
+        width:800px;
+      }
   }
 }
 .red{
