@@ -146,14 +146,14 @@
       </ul>
     </div>
     </el-collapse-transition>
-    <div class="salesTable" >
+    <div class="salesTable" style='height:90%'>
 
     <div class="table-header">
       <ul class="table-header-ul">
         <li v-for='(item,i) in tabletitle' :style="'width:' + item.titleWidth + 'px'" ><p>{{item.name}}</p></li>
       </ul>
     </div>
-    <div class="table-content" >
+    <div class="table-content" style='overflow:auto;'>
         <ul class="table-content-ul" v-for='(item,index) in shopList'>
           <li>
             <div class="table-content-header">
@@ -170,12 +170,12 @@
                       <p>{{top.itemName}}</p>
                       <p>{{top.producedDate}}    {{top.quantity}}罐装</p>
                     </div>
-                    <p style='width:22%'>{{top.price}}</p>
-                    <p style='width:22%'>{{top.quantity}}</p>
+                    <p style='width:20%'>{{top.price}}</p>
+                    <p style='width:20%'>{{top.quantity}}</p>
                   </div>
                 </div>
                 <p>
-                  <span>{{item.tmoney}}</span>
+                  <span style='font-size:18px;color:#6e7381;font-weight:700'>{{item.tmoney}}</span>
                   <span>含运费：<i>{{item.freight}}</i></span>
                   <span>总计：<i>{{item.tnum}}</i>件</span>
                 </p>

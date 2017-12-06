@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="">
+  <div class="shouhoudingdan">
     <div class="list-top">
       <p class="title">售后订单</p>
       <div class="demo-input-suffix">
@@ -171,30 +171,46 @@
     <div class="table-content" >
 
 
-        <ul class="table-content-ul" v-for='(item,i) in 5'>
+        <ul class="table-content-ul" v-for='(item,index) in shopList'>
 
           <li>
             <div class="table-content-header">
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
-              <p>订单号:20171016563214</p>
+              <p>申请时间:<span>{{item.created}}</span></p>
+              <p>退款编号:<span>{{item.orderno}}</span></p>
+              <p>付款时间:<span>{{item.price}}</span></p>
+              <p>订单号:<span>{{item.price}}</span></p>
+              <p><span>{{item.price}}</span></p>
             </div>
               <div class="box">
-                <div class="box-img">
-                    <img src='../../../static/images/test.png'/>
-                  <p>{{tableContent.box1}}</p>
-                  <p>2017年7月-2018年8月    2罐装</p>
+                <div class='s-box'>
+                  <div class='box-shop'>
+                    <div class="box-img">
+                      <img :src='item.itemImg'/>
+                      <p>{{item.itemName}}</p>
+                      <p>{{item.producedDate}}    {{item.quantity}}罐装</p>
+                    </div>
+                    <p style='width:20%'>{{item.price}}</p>
+                    <p style='width:20%'>{{item.quantity}}</p>
+                  </div>
                 </div>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <p>{{tableContent.box2}}</p>
-                <router-link to='/Details'><p style='color:#12a1f3'>{{tableContent.box4}}</p></router-link>
+                <p>
+                  <span style='font-size:18px;color:#6e7381;font-weight:700'>{{item.tmoney}}</span>
+                  <span>含运费：<i>{{item.freight}}</i></span>
+                  <span>总计：<i>{{item.tnum}}</i>件</span>
+                </p>
+                <p>
+                  <span>{{item.name}}</span>
+                  <span>{{item.phone}}</span>
+                  <span>{{item.adress}}</span>
+                </p>
+                <p class='sta'>
+                  <router-link to='/Complete'><span class='trant'>{{item.state}}</span></router-link>
+                  <router-link to='/Details'><span style='color:#12a1f3' :sid='item.id' @click="toDetail($event)">订单详情</span></router-link>
+                </p>
                 <p class='shouhou'>
-                  <span style='color:#ff776d'>{{tableContent.state1}}</span>
-                  <span>{{tableContent.state2}}</span>
-                  <router-link to='/Aftersale'><span style='color:#12a1f3'>{{tableContent.box5}}</span></router-link>
+                  <span style='color:#ff776d'>{{item.state1}}</span>
+                  <span>{{item.state2}}</span>
+                  <router-link to='/Aftersale'><span style='color:#12a1f3'>查看详情</span></router-link>
                 </p>
                 <p><el-button type="primary" size='small'>接单</el-button></p>
               </div>
@@ -216,6 +232,7 @@
     },
     data () {
       return {
+        shopList: [],
         tabletitle: [
           {
             name: '商品',
@@ -230,7 +247,7 @@
             //  titleWidth:"80",
           },
           {
-            name: '总金额/件数'
+            name: '退款金额/件数'
             //  titleWidth:"120",
           },
           {
@@ -264,83 +281,12 @@
             }
           ]
         },
-        tableContent: {
-          box1: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          box2: '200333',
-          box3: '请发顺丰快递',
-          box4: '订单详情',
-          box5: '查看详情',
-          state1: '待审核',
-          state2: '仅退款'
-
-        },
         showIt: false,
         checked: false,
         tableHeight: 748,
         multipleSelection: [],
-        tableData3: [{
-          date: '2016-05-03',
-          img: '../../../static/image/commodity.jpg',
-          Commodity: '200333',
-          name: '海外原装进口德国爱他美3段婴儿成长配方宝宝奶粉三段2段国内现货',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          Commodity: '200333',
-          address: '上海市普陀区金沙江路 1518 弄'
-        } ],
+
         tableItem: '全部订单',
-        list: [
-          {
-            name: '首页1',
-            icon: '',
-            index: '1',
-            path: 'main1',
-            children: []
-          },
-          {
-            name: '首页2',
-            icon: '',
-            index: '2',
-            path: 'main2',
-            children: []
-          },
-          {
-            name: '首页3',
-            icon: '',
-            index: '3',
-            path: 'main3',
-            children: []
-          },
-          {
-            name: '首页4',
-            icon: '',
-            index: '4',
-            path: 'main4',
-            children: []
-          }
-        ],
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -364,7 +310,68 @@
 
     ],
     mounted () {
-
+      this.$http.get('api/sup/refund/1', {params: {}}).then(res => {
+        console.log(res)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          if (arr[i].status == 0) {
+            arr[i].status = '待支付'
+          } else if (arr[i].status == 1) {
+            arr[i].status = '待发货'
+          } else if (arr[i].status == 2) {
+            arr[i].status = '已完成'
+          } else if (arr[i].status == 3) {
+            arr[i].status = '已取消'
+          } else if (arr[i].status == 4) {
+            arr[i].status = '已取消'
+          }
+          if (arr[i].afterStatus == 0) {
+            arr[i].afterStatus = '待审核'
+          } else if (arr[i].afterStatus == 1) {
+            arr[i].afterStatus = '供应商拒绝'
+          } else if (arr[i].afterStatus == 2) {
+            arr[i].afterStatus = '供应商同意'
+          } else if (arr[i].afterStatus == 3) {
+            arr[i].afterStatus = '同意退款'
+          } else if (arr[i].afterStatus == 4) {
+            arr[i].afterStatus = '拒绝退款'
+          } else if (arr[i].afterStatus == 5) {
+            arr[i].afterStatus = '待寄回'
+          } else if (arr[i].afterStatus == 6) {
+            arr[i].afterStatus = '退款成功'
+          } else if (arr[i].afterStatus == 7) {
+            arr[i].afterStatus = '退款失败'
+          } else if (arr[i].afterStatus == 8) {
+            arr[i].afterStatus = '退款关闭'
+          } else if (arr[i].afterStatus == 9) {
+            arr[i].afterStatus = '撤销退款'
+          }
+          if (arr[i].refundType == 0) {
+            arr[i].refundType = '仅退款'
+          } else if (arr[i].refundType == 1) {
+            arr[i].refundType = '申请补偿'
+          } else if (arr[i].refundType == 2) {
+            arr[i].refundType = '退货退款'
+          } 
+          this.shopList.push({
+            itemName: arr[i].itemName,
+            producedDate: arr[i].producedDate,
+            price: arr[i].price,
+            quantity: arr[i].specsNumber,
+            name: arr[i].userName,
+            phone:arr[i].cellPhone,
+            adress: arr[i].addressMsg,
+            tmoney: arr[i].orderPrice,
+            tips: arr[i].remark,
+            toplist: arr[i].item,
+            state:arr[i].status,
+            state1: arr[i].afterStatus,
+            state2: arr[i].refundType
+          })
+        }
+      }, error => {
+        console.log(2)
+      })
     },
     computed: {
 
@@ -425,7 +432,29 @@
 @import '../../../static/style/order.scss';
 </style>
 <style lang="scss" scoped>
+.shouhoudingdan{
+    position: relative;
+    height:93.5%;
+    .box{
+  border-bottom:1px solid #d6e2ed;
+  p{
+    span{
+      font:14px/24px '';
+      color:#6e7381;
+      display: block;
+    }
+  }
+  .s-box{
+    width:44.8%;
+    float:left;
+      .box-shop{
+        width:800px;
+      }
+  }
+}
+}
 .shouhou{
+  height:
   span{
     display: block;
     cursor:pointer 
