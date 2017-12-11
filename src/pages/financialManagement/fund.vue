@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="dingdanjiesuan">
+  <div class="zijinshouru">
     <div class="list-top">
       <p class="title">资金收入</p>
       <div class="smalldemo">
@@ -152,7 +152,7 @@
 </script>
 <style lang="scss">
 @import '../../../static/style/order.scss';
-.dingdanjiesuan{
+.zijinshouru{
   position: relative;
   height:93.5%;
     .el-table__row{

@@ -5,12 +5,18 @@
             <span>通知</span>
             <span>全部标记已读</span>
         </div>
-        <div>
+        <!--<div>
             <template>
                 <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                     <el-tab-pane label="全部" name="first">
                         <template>
                             <ul class='messagePage-ul'>
+                                <li v-for="(item,index) in list">
+                                    <div class="box">
+                                    <p><i><img src="../../../static/images/View2.png"></i>新品发布<span>今天 13:08</span></p>
+                                    <p class='news-main'>花王L54已加入纸尿裤供货区 ,  您可以报价啦。<span>去报价</span></p>
+                                    </div>
+                                </li>
                                 <li>
                                     <div class="box">
                                     <p><i><img src="../../../static/images/View2.png"></i>新品发布<span>今天 13:08</span></p>
@@ -60,51 +66,76 @@
                     <el-tab-pane label="未读" name="third"></el-tab-pane>
                 </el-tabs>
             </template>
-        </div>
+        </div>-->
+            <div id="tabNav">
+                <ul>
+                    <li v-for="(item,index) in list" @click="newMessage(index)" :class="{active:num==index}">{{item.name}}</li>
+                </ul>
+            </div>
+            <div v-for="(item,index) in tableList"></div>
     </div>
 </div>
 </template>
 
 <script>
+import $ from 'jquery'
+import qs from 'qs'
 export default {
   data () {
     return {
-      activeName: 'first'
+      activeName: 'first',
+      list: [
+        {
+          name: '全部'
+        },
+        {
+          name: '未读'
+        },
+        {
+          name: '已读'
+        }
+      ],
+      num: '',
+      tableList: ''
     }
   },
+
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    newMessage (i) {
+      this.num = i
+      if (this.num == 0) {
+        var id = 0
+      }
+      if (this.num == 1) {
+        var id = 0
+      }
+      if (this.num == 2) {
+        var id = 1
+      }
+      this.$http.post('api/msg', qs.stringify({
+        hasReades: id
+      })).then(res => {
+        this.tableList = []// 每次渲染之前将tableList这个列表清空
+        // console.log(res)
+      })
     }
+  },
+  mounted () {
+    this.$http.get('api/msg', qs.stringify({
+        // categoryId:id
+        // searchWord:input
+      categoryId: 0
+    })).then(res => {
+      console.log(res)
+    }, error => {
+      console.log(2)
+    })
   }
 }
 </script>
-
-<style lang='scss'>
-.messagealert{
-    .el-tabs--card>.el-tabs__header{
-        border-bottom:none;
-    }
-    .el-tabs__nav{
-        margin-left: 30px;
-    }
-    .el-tabs--card>.el-tabs__header .el-tabs__nav{border-bottom: 1px solid #dfe4ed;}
-    .el-tabs__nav-wrap{
-        margin-bottom: -2px;
-    }
-    .el-tabs__item{
-        height:30px;
-        line-height: 30px;
-        &:hover{
-            color:#000;
-        }
-    }
-    .el-tabs__item.is-active{
-        color:#fff;
-        background:#626673;
-    }
-}
-</style>
 <style lang="scss" scoped>
 .messagePage{
     .title{
@@ -115,6 +146,30 @@ export default {
             font: 20px/36px '';
             &:last-child{
                 font: 12px/36px "";
+            }
+        }
+    }
+    #tabNav{
+        ul{
+            border:1px solid #dfe4ed;
+            height:30px;
+            border-radius:2px;
+            display:flex;
+            li{
+                float: left;
+                width:76px;
+                height:30px;
+                border-right:1px solid #dfe4ed;
+                text-align:center;
+                line-height:30px;
+                color:#6e7381;
+                &:last-child{
+                    border-right:none;
+                } 
+            }
+            .active{
+                background:#6e7381;
+                color:#fff;
             }
         }
     }

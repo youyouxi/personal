@@ -27,6 +27,7 @@
 </template>
 
 <script lang="">
+import $ from 'jquery'
 export default{
   data () {
     return {
@@ -45,6 +46,9 @@ export default{
     }
   },
   mounted () {
+    setTimeout(function () {
+      $('.clearr2').addClass('router-link-active')
+    }, 10)
     this.$http.get('api/sup/billMsg/asd1231a3s2', {params: {
       billNo: ''
     }}).then(res => {
@@ -87,6 +91,11 @@ export default{
     }, error => {
       console.log(2)
     })
+  },
+  destroyed () {
+    setTimeout(function () {
+      $('.clearr2').removeClass('router-link-active')
+    }, 10)
   },
   methods: {
     back () {

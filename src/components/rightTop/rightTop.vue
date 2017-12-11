@@ -2,7 +2,7 @@
 	<div class="pubilctop">
 		<div class="publicheader">
 			<div class='left'>
-				<el-tooltip class="item" effect="dark" content="隐藏左边菜单" placement="bottom">
+				<el-tooltip class="item1" effect="dark" content="隐藏左边菜单" placement="bottom">
 					<img src="../../../static/images/hideleft.png" alt="" @click="hide">
 				</el-tooltip>
 				<p>您好 <span>{{name}}</span>，欢迎回来！</p>

@@ -139,14 +139,19 @@
 
     ],
     mounted () {
-      this.$http.get('api/list/1', {params: {}}).then(res => {
-        console.log(res.data.data.list)
-        var arr = res.data.data.list
+      this.$http.get('api/transport/list/1', {params: {}}).then(res => {
+        console.log(res.data.data)
+        var arr = res.data.data
         for (let i in arr) {
+          if (arr[i].countWay == 1) {
+            arr[i].countWay = '按件数'
+          } else if (arr[i].countWay == 2) {
+            arr[i].countWay = '按重量'
+          }
           this.tableData.push({
             name: arr[i].templateName,
-            address: arr[i].countWay,
-            Commodity: arr[i].templateArea
+            address: arr[i].templateArea,
+            Commodity: arr[i].countWay
           })
         }
         console.log(this.tableData)

@@ -18,10 +18,10 @@
 		      <el-submenu index="3">
 		        <template slot="title"><i><img src="../../../static/images/product.png"></i>商品管理</template>
 		        <el-menu-item-group>
-		          <template slot="title"><router-link to='/Shop'>供货清单</router-link></template>
+		          <template slot="title"><router-link to='/Shop' class="clearr">供货清单</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title"><router-link to='/Freight'>运费模板</router-link></template>
+		          <template slot="title"><router-link to='/Freight' class="clearr1">运费模板</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
 		          <template slot="title"><router-link to='/Warning'>库存预警</router-link></template>
@@ -33,10 +33,10 @@
 		          <template slot="title"><router-link to='/Financial'>订单明细</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title"><router-link to='/Management'>账单管理</router-link></template>
+		          <template slot="title"><router-link to='/Management' class="clearr2">账单管理</router-link></template>
 		        </el-menu-item-group>
 		        <el-menu-item-group>
-		          <template slot="title"><router-link to='/Fund'>资金收入</router-link></template>
+		          <template slot="title"><router-link to='/Fund' class="clearr3">资金收入</router-link></template>
 		        </el-menu-item-group>
 		      </el-submenu>
 					<p class='logo-size'>POWERED BY 妈妈去哪儿</p>
@@ -50,11 +50,19 @@
 	  name: 'Left',
 	  data () {
     return {
-	
     }
   }
 	}
 </script>
+<style>
+.router-link-active{
+	color: #fff!important;
+}
+.router-link-exact-active{
+	color: #fff!important;
+}
+</style>
+
 <style lang='scss'>
 .cebianlan{
 	.el-menu{
@@ -71,7 +79,8 @@
 				font-weight: 800;
 				a{
 					// 首页
-					color: #fff;
+					// color: #fff;
+					color: #a3adc8;
 					font:16px/36px "";
 					font-weight: 800;
 				}

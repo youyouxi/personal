@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="dingdanjiesuan">
+  <div class="liushuimingxi">
     <div class="list-top">
       <p class="title">流水明细<span @click='back' class='backs'>返回账单管理</span></p>
       <div class="demo-input-suffix">
@@ -141,6 +141,7 @@
   </div>
 </template>
 <script lang="">
+  import $ from 'jquery'
   import Pagenation from '../../components/pagenations/pagenations.vue'
   export default {
     components: {
@@ -184,6 +185,9 @@
 
     ],
     mounted () {
+      setTimeout(function () {
+        $('.clearr2').addClass('router-link-active')
+      }, 10)
       this.$http.get('api/sup/bill/orderMsg/1', {params: {}}).then(res => {
         console.log(res.data.data.list)
         var arr = res.data.data.list
@@ -271,7 +275,12 @@
       }, error => {
         console.log(2)
       })
-  },
+    },
+    destroyed () {
+      setTimeout(function () {
+        $('.clearr2').removeClass('router-link-active')
+      }, 10)
+    },
     computed: {
 
     },
@@ -291,7 +300,7 @@
 </script>
 <style lang="scss">
 @import '../../../static/style/order.scss';
-.dingdanjiesuan{
+.liushuimingxi{
     .el-table__row{
         .el-table_1_column_1{
             color:#12a1f3;

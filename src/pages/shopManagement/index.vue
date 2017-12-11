@@ -230,34 +230,34 @@
     },
     mounted () {
       this.$http.get('api/item/applylist/2', {params: {
-    }}).then(res => {
-      console.log(res.data.data.list)
-      var arr = res.data.data.list
-      for (let i in arr) {
-        if (arr[i].state == 4) {
-          arr[i].state = '停售中'
-        } else if (arr[i].state == 1) {
-          arr[i].state = '待上架'
-        } else if (arr[i].state == 2) {
-          arr[i].state = '出售中'
-        } else if (arr[i].state == 3) {
-          arr[i].state = '已下架'
+      }}).then(res => {
+        console.log(res.data.data.list)
+        var arr = res.data.data.list
+        for (let i in arr) {
+          if (arr[i].state == 4) {
+            arr[i].state = '停售中'
+          } else if (arr[i].state == 1) {
+            arr[i].state = '待上架'
+          } else if (arr[i].state == 2) {
+            arr[i].state = '出售中'
+          } else if (arr[i].state == 3) {
+            arr[i].state = '已下架'
+          }
+          this.tableData.push({
+            pic: arr[i].imgMain,
+            name: arr[i].title,
+            Commodity: arr[i].itemCode,
+            num: arr[i].specsStr,
+            price: arr[i].totalPrice,
+            totle: arr[i].unitPrice,
+            states: arr[i].state,
+            time: arr[i].created
+          })
         }
-        this.tableData.push({
-          pic: arr[i].imgMain,
-          name: arr[i].title,
-          Commodity: arr[i].itemCode,
-          num: arr[i].specsStr,
-          price: arr[i].totalPrice,
-          totle: arr[i].unitPrice,
-          states: arr[i].state,
-          time: arr[i].created
-        })
-      }
-      console.log(this.tableData)
-    }, error => {
-      console.log(2)
-    })
+        console.log(this.tableData)
+      }, error => {
+        console.log(2)
+      })
   },
     computed: {
 

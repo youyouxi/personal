@@ -15,6 +15,7 @@
 </div>
 </template>
 <script lang="">
+import $ from 'jquery'
 export default{
   data () {
     return {
@@ -33,8 +34,11 @@ export default{
     }
   },
   mounted () {
+    setTimeout(function () {
+      $('.clearr3').addClass('router-link-active')
+    }, 10)
     this.$http.get('api/sup/transferMsg/asd1231a3s2', {params: {
-      billNo:''
+      billNo: ''
     }}).then(res => {
       console.log(res.data.data)
       var arr = res.data.data
@@ -52,6 +56,11 @@ export default{
     }, error => {
       console.log(2)
     })
+  },
+  destroyed () {
+    setTimeout(function () {
+      $('.clearr3').removeClass('router-link-active')
+    }, 10)
   }
 }
 </script>

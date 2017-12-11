@@ -130,6 +130,7 @@ export default {
                     padding-left:20px;
                     &:last-child{border: none}
                     p{
+                        cursor: pointer;
                         font-size:14px;
                         color:#6e7381;
                         margin-bottom: 15px;

@@ -115,6 +115,11 @@ export default {
       }
     }
   },
+  mounted () {
+    setTimeout(function () {
+      $('.clearr1').addClass('router-link-active')
+    }, 10)
+  },
   methods: {
     saveBorder () {
       var dex = localStorage.getItem('dex')

@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="dingdanjiesuan">
+  <div class="zhangdanguanli">
     <div class="list-top">
       <p class="title">账单管理</p>
       <div class="demo-input-suffix">
@@ -111,7 +111,6 @@
               >
               <el-table-column
                 style="border-right:none"
-                prop="num"
                 label="账单编号"
                 width='200px'
                 >
@@ -126,9 +125,11 @@
                 >
               </el-table-column>
               <el-table-column
-                prop="time"
                 label="账单日期"
                 >
+                <template slot-scope="scope">
+                  <span>{{scope.row.bengin}}</span>至<span>{{scope.row.ending}}</span>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="money"
@@ -232,21 +233,22 @@
             arr[i].transferStatus = '资金审批中'
           } else if (arr[i].transferStatus == 2) {
             arr[i].transferStatus = '资金审批成功'
-          }else if (arr[i].transferStatus == 3) {
+          } else if (arr[i].transferStatus == 3) {
             arr[i].transferStatus = '资金审批失败'
-          }else if (arr[i].transferStatus == 4) {
+          } else if (arr[i].transferStatus == 4) {
             arr[i].transferStatus = '已付款'
-          }else if (arr[i].transferStatus == 5) {
+          } else if (arr[i].transferStatus == 5) {
             arr[i].transferStatus = '未付款'
-          }else if (arr[i].transferStatus == 6) {
+          } else if (arr[i].transferStatus == 6) {
             arr[i].transferStatus = '待收款'
-          }else if (arr[i].transferStatus == 7) {
+          } else if (arr[i].transferStatus == 7) {
             arr[i].transferStatus = '已收款'
           }
           this.tableData.push({
             num: arr[i].billNo,
-            btime: arr[i].startTime,
-            time: arr[i].created,
+            btime: arr[i].created,
+            bengin: arr[i].startTime,
+            ending: arr[i].endTime,
             money: arr[i].orderMoney,
             bmoney: arr[i].refundMoney,
             tmoney: arr[i].clearingMoney,
@@ -254,7 +256,7 @@
             state2: arr[i].transferStatus
           })
         }
-        console.log(this.tableData)
+        console.log(this.tableData.btime)
       }, error => {
         console.log(2)
       })
@@ -315,7 +317,7 @@
 </script>
 <style lang="scss">
 @import '../../../static/style/order.scss';
-.dingdanjiesuan{
+.zhangdanguanli{
   position: relative;
   height:93.5%;
     .el-table__row{
@@ -325,4 +327,17 @@
         }  
     }
 } 
+.cell{
+  width: 100%;
+  .operation-box{
+    width: 100;
+    display: flex;
+    p{
+      display: inline-block;
+      margin-left: 5px;
+      color:#12a1f3;
+            cursor:pointer;
+    }
+  }
+}
 </style>
