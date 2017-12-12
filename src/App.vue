@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
-		<Left @click.native='click1'></Left>
-		<div class='right-main' @click='click'>
+		<Left></Left>
+		<div class='right-main'>
 			<Right></Right>
 			<router-view></router-view>
 		</div>
@@ -19,39 +19,39 @@ export default {
     return {
     }
   },
-  // mounted () {
-  //   this.$http.get('api/user/captcha', qs.stringify({
-  //   })).then(res => {
-  //     // console.log(res)
-  //   })
-  //   this.$http.post('api/user/login', qs.stringify({
-  //     loginCode: '18868946840',
-  //     loginPassword: '123456',
-  //     validateCode: 'mhud'
-  //   })).then(res => {
-  //     console.log(res)
-  //   })
-  // },
-  methods: {
-    click () {
-			// 获取验证码、 
-      alert(1)
-      this.$http.get('api/user/captcha', qs.stringify({
-      })).then(res => {
+  mounted () {
+    this.$http.get('api/user/captcha', qs.stringify({
+    })).then(res => {
       console.log(res)
-      })
-    },
-    click1 () {
-      console.log(1) 
-      this.$http.post('api/user/login', qs.stringify({
-        loginCode: '18868946840',
-        loginPassword: '123456',
-        validateCode: 'phcj'
-      })).then(res => {
-        console.log(res)
-      })
-    }
+    })
+    this.$http.post('api/user/login', qs.stringify({
+      loginCode: '18868946840',
+      loginPassword: '123456',
+      validateCode: 'atk3'
+    })).then(res => {
+      console.log(res)
+    })
   },
+  // methods: {
+  //   click () {
+	// 		// 获取验证码、 
+	// 	 // alert(1)
+  //     this.$http.get('api/user/captcha', qs.stringify({
+  //     })).then(res => {
+  //     console.log(res)
+  //     })
+  //   },
+  //   click1 () {
+  //     console.log(1) 
+  //     this.$http.post('api/user/login', qs.stringify({
+  //       loginCode: '18868946840',
+  //       loginPassword: '123456',
+  //       validateCode: 'phcj'
+  //     })).then(res => {
+  //       console.log(res)
+  //     })
+  //   }
+  // },
   components: {
     Left,
     Right

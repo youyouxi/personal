@@ -122,6 +122,10 @@ export default {
   },
   methods: {
     saveBorder () {
+      this.$http.post('api/transport', qs.stringify({
+      })).then(res => {
+        console.log(res)
+      })
       var dex = localStorage.getItem('dex')
       if (!dex) {
         this.border = 0

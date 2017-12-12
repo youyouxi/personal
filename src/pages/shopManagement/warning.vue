@@ -19,9 +19,9 @@
                 style="width: 100%">
                 <el-table-column
                 label="商品"
-                width="60">
+                width="80">
                 <template slot-scope="scope">
-                  <img :src="scope.row.pic"/>
+                  <img class='warningimg' :src="scope.row.pic"/>
                 </template>
                 </el-table-column>
                 <el-table-column
@@ -172,6 +172,13 @@ export default {
         color:#12a1f3;
 
     }
+}
+.warningimg{
+  width: 64px;
+        height: 64px;
+        border:1px solid #dfe2e9;
+        float: left;
+        margin-right:20px;
 }
 .pageNum{
   width: 100%;

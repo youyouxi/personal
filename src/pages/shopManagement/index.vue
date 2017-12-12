@@ -136,7 +136,7 @@
                 width='100px'
                 >
                 <template slot-scope="scope">
-                  <img :src="scope.row.pic"/>
+                  <img class='shopimg' :src="scope.row.pic"/>
                 </template>
               </el-table-column>
               <el-table-column
@@ -204,7 +204,7 @@
     data () {
       return {
         showIt: false,
-        //  tableHeight:745,
+        tableHeight:745,
         multipleSelection: [],
         outerHeight: 240,
         tableData: [],
@@ -317,14 +317,6 @@
 </script>
 <style lang='scss'>
 @import '../../../static/style/order.scss';
-.shopmanage{
-  .el-table__row{
-  .el-table_1_column_3{
-    color:#12a1f3;
-    padding-right:20px; 
-  }
-}
-}
 </style>
 
 <style lang="scss" scoped>
@@ -332,10 +324,15 @@
   position: relative;
   height:93.5%;
 }
-.commodity{
-    img{
-        width: 62px;
-        height:62px;
-    }
+.shopimg{
+  border:1px solid #ebedf1;
+  width: 62px;
+  height:62px;
 }
+// .commodity{
+//     img{
+//         width: 62px;
+//         height:62px;
+//     }
+// }
 </style>
